@@ -227,7 +227,7 @@ def compare_time():
 
 def get_two_currencies():
     check_data(1)
-    currencies = eval(get_data())
+    currencies = eval(get_data()[1])
     while True:
 
         starter = input("\nSelect Starter Currency >>> ")
