@@ -20,8 +20,9 @@ def done():
 
 
     clear()
-    print("\n" * 6 + "=" * 76 + "\n\n" + " " * 28 + "FOURSCORE FINANCIAL TECHNOLOGIES\n\n" + "=" * 76 + "\n" * 7)
+    print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "Enjoy your day!\n\n" + "=" * 76 + "\n" * 7)
     sleep(2)
+    clear()
     exit()
     return 0
 
@@ -74,7 +75,7 @@ def welcome():
 
     clear()
     os.system('color 0b')
-    print("\n"*6+"="*76+"\n\n"+" "*22+ "FOURSCORE FINANCIAL TECHNOLOGIES\n\n"+"="*76+"\n"*7)
+    print("\n"*6+"="*76+"\n\n"+" "*21+ "FOURSCORE FINANCIAL TECHNOLOGIES\n\n"+"="*76+"\n"*7)
 
     sleep(3)
     clear()
@@ -874,13 +875,13 @@ def data_handle():
 def learn():
     clear()
     print("\n||Learn")
-    print("\nLearn About?\n1. How it works\n2. Tips on getting rates")
+    print("\nLearn About?\n\n1. How it works\n2. Tips on getting rates")
     select = int_inputs(2)
     if select == 1:
         clear()
         print("\n||How It Works")
         print("\n Arbitrage occurs when identical products, commodities or anything\n"
-                "of value is sold at different prices in different places. Sometimes\n"
+                "of value are sold at different prices in different places. Sometimes\n"
                 "these differences are not always. In this case our commodities are\n"
                 "forex which can be found at different effective rates across different\n"
                 "money changing institutions or people\n"
@@ -951,7 +952,7 @@ def about():
     option = int_inputs(2)
     if option == 1:
         main()
-    elif option == 1:
+    elif option == 2:
         done()
 
 def main():
