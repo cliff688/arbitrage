@@ -6,23 +6,34 @@ import os
 import csv
 
 def clear():
-    
+
+
+    """Clears the screen or terminal"""
+
+
     os.system('cls')
 
 def done():
 
-    clear()
-    print("\n\n\n\n\n\n............................Closing Application.............................\n\n\n\n\n\n")
-    sleep(3)
-    clear()
-    print("\n\n\n\n\n\n...........................Have A Beautiful Day :).........................\n\n\n\n\n\n")
-    sleep(2)
-    clear()
 
+    """Clears the screen and dispalys closing message before closing the program"""
+
+
+    clear()
+    print("\n" * 6 + "=" * 76 + "\n\n" + " " * 28 + "FOURSCORE FINANCIAL TECHNOLOGIES\n\n" + "=" * 76 + "\n" * 7)
+    sleep(2)
     exit()
     return 0
 
 def get_data():
+
+
+    """
+    Reads currency data from the csv file
+    :return: void
+    """
+
+
     try :
         with open("my_currencies.csv", 'r') as mc:
             lead = csv.reader(mc, delimiter = ',')
@@ -37,6 +48,14 @@ def get_data():
         return None
 
 def check_data(n):
+
+    """
+    Checks if data exits in the csv file should the user attempt to use it. if none is available
+    it automatically refers them to the data update by function call
+    :return: void
+    """
+
+
     if get_data() == None:
         clear()
         print("\nInsufficient Data. Please Update Your Data To Proceed\n")
@@ -49,35 +68,33 @@ def check_data(n):
 
 def welcome():
 
+
+    """Displays the formatted start-up messages on the screen"""
+
+
     clear()
     os.system('color 0b')
-    print("\n\n\n\n\n\n"
-          "============================================================================")
-    print("\n                     FOURSCORE FINANCIAL TECHNOLOGIES\n")
-    print("============================================================================\n\n\n\n\n\n\n")
+    print("\n"*6+"="*76+"\n\n"+" "*22+ "FOURSCORE FINANCIAL TECHNOLOGIES\n\n"+"="*76+"\n"*7)
+
     sleep(3)
     clear()
-    print("\n\n\n\n\n\n"
-          "============================================================================")
-    print("\n                             FOREX ARBITRAGE\n")
-    print("============================================================================\n\n\n\n\n\n\n")
+    print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "FOREX ARBITRAGE\n\n" + "=" * 76 + "\n" * 7)
     sleep(1.5)
     clear()
-
-    print("\n\n\n\n\n\n"
-          "============================================================================")
-    print("\n                    Welcome, We're glad to have you :)\n")
-    print("============================================================================\n\n")
+    print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "At Your Service :)\n\n" + "=" * 76 + "\n" * 4)
     if get_data() == None :
-        print("              Tip! Forex Arbitrage Works Best With More Data\n\n\n")
+        print(" "*14 + "Tip! Forex Arbitrage Works Best With More Data\n")
         sleep(1)
     else:
-        print("\n\n\n\n")
-
+        print("\n"*3)
     sleep(2)
     clear()
 
 def int_inputs(n):
+
+
+    """An error handling function to get integer inputs from the user"""
+
 
     while True:
         try:
@@ -92,7 +109,12 @@ def int_inputs(n):
             continue
 
 def back(n):
-    
+
+    """This function displays the options the user has after they are done running None type returning funtions.
+    It takes their location as an integer which represents their current function call. Depending on their choice
+    they can be taken to their previous menu or they can exit the application"""
+
+
     print("\n||Where To Next?\n")
     print("1. Back")
     print("2. Exit")
@@ -114,6 +136,10 @@ def back(n):
 
 def help_direct():
 
+
+    """Sends a user to the help menu after a number of invalid inputs"""
+
+
     clear()
     print("Please refer to Help")
     print("1. Help")
@@ -127,11 +153,13 @@ def help_direct():
 
 def compare_time():
 
+
     """This function is a poorly designed attempt at calculating the time that has passed since the last data
     entry. A better way to do it would have been to use the epoch time instead or maybe master the time module
     better, but it was not until the middle of it's design that i realised i could have done it better. The sheer
     number of variables used is mind boggling, even to me. But I am not ready to tear down the code. The next
     version will, however, be better!"""
+
 
     if get_data() == None :
         print("No Data Found\n")
@@ -226,6 +254,14 @@ def compare_time():
             print(f"last Data Update: {p_h_diff} minutes ago!\n")
 
 def get_two_currencies():
+
+
+    """
+    gets the user to select two currencies
+    :return: tuple of two currecncies (start, end)
+    """
+
+
     check_data(1)
     currencies = eval(get_data()[1])
     while True:
@@ -272,6 +308,13 @@ def get_two_currencies():
 def convert():
 
 
+    """
+    Convert Menu. Allows user to do a direct conversion locally or calls arbitrage() to perform chain conversion
+    Does a direct conversion of two currencies
+    :return: void
+    """
+
+
     clear()
     print("\n||Currency conversions\n")
     print("1. Direct Conversion")
@@ -312,6 +355,11 @@ def convert():
 
 def foreign():
     # @@ help referrals in this function get the input 2
+
+    """
+    Calculates the value of a currency in all the forign currencies for which data permits
+    :return: void
+    """
     clear()
     print("\n||Foreign Worth\n")
     print("1. Use currently available data")
@@ -376,6 +424,16 @@ def foreign():
     # @@ if none available prompt them to update data
 
 def write_data(rates, currencies, unavailable_quotes):
+
+
+    """
+    Writes data into csv file
+    :param rates:
+    :param currencies:
+    :param unavailable_quotes:
+    :return: void
+    """
+
 
     with open("my_currencies.csv", mode = 'a') as my_cs:
 
@@ -789,15 +847,26 @@ def data_handle():
 def learn():
     clear()
     print("\n||Learn")
-    print("\n||How It Works\n")
-    print("\n Given that Zimbabwe is not a developed financial market,\n"
-          "it offers opportunities to profit from disparities in information,\n"
+    print("\nLearn About?\n1. How it works\n2. Tips on getting rates")
+    select = int_inputs(2)
+    if select == 1:
+        clear()
+        print("\n||How It Works")
+        print("\nGiven that Zimbabwe is not a developed financial market, it\n"
+          "offers opportunities to profit from disparities in information\n"
           "which may lead to disparities in prices and rates. But these\n"
-          "opportunities are not always obvious.\n"
+          "opportunities are not always obvious. The premise is this: with\n"
+          "the right tools, it should be possible to exploit these opportunities\n"
+          "without necessarily having to end up with an undesirable currency.\n"
+          "\n We have designed the arbitrage calculator to figure that out for\n"
+          "you, so you can focus on the more important business of managing \n"
+          "your your wealth.\n"
           "\n This application allows you to gather rates from the forex \n"
-          "changing people, and does the calculations for you. \n "
-          "\n||Getting Currencies\n\n"
-          " As a rule, when finding these currency rates, you should always \n"
+          "changing people, and does the calculations for you.")
+    else:
+        clear()
+        print("\n||Getting Currencies")
+        print("\n As a rule, when finding these currency rates, you should always \n"
           "take the ones that gives you more of the currency you're getting.\n"
           "i.e whenever you get from currency A to currency B, take the rate\n"
           "that gives you the largest value of B divided by A -- more B for \n"
@@ -808,14 +877,20 @@ def learn():
           "currency, just feed the rate into the data.\n\n"
           "You can also benefit from the more expensive rates as they are\n"
           "most likely to have more lucrative B > A rates. E.g our changer\n"
-          "with the USD 10 to ZWL 100 most likey offers the best ZWL to USD\n"
-          "price. Remember that trick.\n\n")
-    print("1. Back to Main Menu")
-    print("2. Exit")
-    option = int_inputs(2)
+          "with the USD 10 to ZWL 100 most likely offers the best ZWL to USD\n"
+          "price. Remember that trick.\n"
+          "\n NB See the Help section to see how you can input your currency\n"
+          "data easily, without having to do the calculations to determine the\n"
+          "actual mathematical rate")
+    print("\n1. Back to Learn")
+    print("2. Back to Main Menu")
+    print("3. Exit")
+    option = int_inputs(3)
     if option == 1:
+        learn()
+    elif option == 2:
         main()
-    elif option == 1:
+    else:
         done()
 
 def get_help():

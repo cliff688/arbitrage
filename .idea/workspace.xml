@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7d1623c-e1ee-4f59-b1bf-d635d8ee71a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arbvisuals.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbvisuals.py" afterDir="false" />
     </list>
@@ -140,6 +139,8 @@
       <workItem from="1570341541246" duration="1623000" />
       <workItem from="1570451723222" duration="13000" />
       <workItem from="1570456708843" duration="800000" />
+      <workItem from="1570779378813" duration="230000" />
+      <workItem from="1571268890623" duration="905000" />
     </task>
     <servers />
   </component>
@@ -154,7 +155,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
