@@ -441,8 +441,18 @@ def write_data(rates, currencies, unavailable_quotes):
         writer.writerow([dt.now(), currencies, rates, unavailable_quotes])
 
 def create(k) :
+
+
+    """
+
+    Handles the process of inputing currency data data from the user
+    :param k: The function address whence the user came
+    :return: void
+
+    """
     # k is the address where user came from
     # @@ help referals in this function get the input 4
+
     clear()
     print("\n||Data Update\n")
     print("Enter Number of Currencies ")
@@ -553,7 +563,20 @@ def create(k) :
     back(k)
 
 def print_returns(where_from_p, conversions, returns):
-    """Manages the business of printing the results from arbitrage calculations as the user wishes to display them"""
+
+
+    """
+
+    Manages the business of printing the results from arbitrage calculations aesthetically
+    :param where_from_p: function address whence the user came
+    :param conversions: type <list>: The permutations of the possible changing routes
+    :param returns: type <list>: The gains corresponding to the permutations
+    :return: void
+
+
+    """
+
+
     clear()
     if where_from_p == 0 or where_from_p == 3:
         try:
@@ -635,11 +658,15 @@ def print_returns(where_from_p, conversions, returns):
         back(1)
 
 def arbitrage(where_from):
-    """
 
+
+    """
     :type where_from: int
     """
+
+
     # @@ help referrals in this function get the input 3
+
     clear()
     if where_from == 0 or where_from == 3:
         print("\n||Arbitrage Explorer\n")
@@ -852,17 +879,22 @@ def learn():
     if select == 1:
         clear()
         print("\n||How It Works")
-        print("\nGiven that Zimbabwe is not a developed financial market, it\n"
-          "offers opportunities to profit from disparities in information\n"
-          "which may lead to disparities in prices and rates. But these\n"
-          "opportunities are not always obvious. The premise is this: with\n"
-          "the right tools, it should be possible to exploit these opportunities\n"
-          "without necessarily having to end up with an undesirable currency.\n"
-          "\n We have designed the arbitrage calculator to figure that out for\n"
-          "you, so you can focus on the more important business of managing \n"
-          "your your wealth.\n"
-          "\n This application allows you to gather rates from the forex \n"
-          "changing people, and does the calculations for you.")
+        print("\n Arbitrage occurs when identical products, commodities or anything\n"
+                "of value is sold at different prices in different places. Sometimes\n"
+                "these differences are not always. In this case our commodities are\n"
+                "forex which can be found at different effective rates across different\n"
+                "money changing institutions or people\n"
+                "\n For example Zimbabwe being an under-developed financial market,\n"
+                "offers opportunities to profit from disparities in information\n"
+                "which may lead to disparities in prices and rates. But these\n"
+                "opportunities are not always obvious. The premise is this: with\n"
+                "the right tools, it should be possible to exploit these opportunities\n"
+                "without necessarily having to end up with an undesirable currency.\n"
+                "\n We have designed the arbitrage calculator to figure that out for\n"
+                "you, so you can focus on the more important business of managing \n"
+                "your your wealth.\n"
+                "\n This application allows you to gather rates from the forex \n"
+                "changing people, and does the calculations for you.")
     else:
         clear()
         print("\n||Getting Currencies")
