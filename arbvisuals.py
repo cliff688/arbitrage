@@ -648,7 +648,7 @@ def print_returns(where_from_p, conversions, returns):
 
     if where_from_p != 1 :
         print("\n||Arbitrage Explorer\n")
-        print(f"\nShowing how much can be made from a {conversions[0][0][0]} arbitrage execution\n\n")
+        print(f"\nShowing how much can be made from a {conversions[0][0][0]}git  arbitrage execution\n\n")
 
         print(format_guy.format("Conversion Chain") + "{:>16s}".format("Return (%)"))
     else :
