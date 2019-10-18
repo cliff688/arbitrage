@@ -223,11 +223,15 @@ def compare_time():
     if ddiff > 0:
         days = eval(now_date[2]) - eval(p_date[2])
         if days >= 7:
-            if days // 7 == 1:
+            if days // 7 == 1 and days % 7 <= 2:
                 print(f"Last Data Update: About A Week Ago!\n")
                 return 0
-            else:
-                print(f"Last Data Update: About {days//7} weeks ago!\n")
+            elif days // 7 == 1 and days >= 3:
+                print(f"Last Data Update: About {days//7} week {days%7} days ago!\n")
+                return 0
+            else :
+                print(f":ast Data update: About {days//7} weeks ago")
+                return 0
         elif days == 1:
             hours = 24 - eval(p_time[0]) + eval(n_time[0])
             minutes = eval(n_time[1]) - eval(p_time[1])
@@ -259,7 +263,7 @@ def get_two_currencies():
 
     """
     gets the user to select two currencies
-    :return: tuple of two currecncies (start, end)
+    :return: tuple of two currencies (start, end)
     """
 
 
@@ -320,17 +324,21 @@ def convert():
     print("\n||Currency conversions\n")
     print("1. Direct Conversion")
     print("2. Try Chain Conversion")
-    print("3. Back To Main Menu")
-    option = int_inputs(3)
-    if option == 1:
+    print("3. Reverse Conversion")
+    print("4. Back To Main Menu")
+    option = int_inputs(4)
+    if option == 1 or option == 3:
         clear()
-        print("\n||Simple Conversion\n")
+        if option == 1:
+            print("\n||Simple Conversion\n")
+        else:
+            print("\n||Reverse Conversion\n")
         check_data(1)
         quotes = eval(get_data()[2])
 
         currencies = eval(get_data()[1])
         n = len(currencies)
-        print("\nAvailable Currencies\n")
+        print("Available Currencies\n")
 
         for i in range(n):
             print(f"{i + 1}. {currencies[i]}")
@@ -341,17 +349,24 @@ def convert():
         else:
             while True:
                 try :
-                    num = float(input(f"\nEnter Starting Value    >>> {starter} "))
-                    break
+                    if option == 1:
+                        num = float(input(f"\nEnter Starting Value    >>> {starter} "))
+                        print(f"\n{starter} {round(num,2)} >> {end} {round(num * rate,2)}")
+                        break
+                    else:
+                        num = float(input(f"\nEnter Ending Value    >>> {end} "))
+                        print(f"\n{starter} {round(num/rate,3)} >> {end} {num}")
+                        print(f"\nYou need {starter} {round(num/rate,3)} to get {end} {num} at {rate}")
+                        break
                 except ValueError:
                     print(":( Please Try Again")
 
-            print(f"\n{starter} {num} >> {end} {num*rate}")
         back(1)
 
     elif option == 2:
         arbitrage(1)
-    elif option == 3:
+
+    else:
         main()
 
 def foreign():
@@ -605,7 +620,7 @@ def print_returns(where_from_p, conversions, returns):
         if option_p == 1:
             while True:
                 try:
-                    amount = int(input(f"\nEnter Amount >>> {conversions[0][0][0]}"))
+                    amount = int(input(f"\nEnter Amount >>> {conversions[0][0][0]} "))
                     break
                 except ValueError:
                     print(":( Please Try Again")
@@ -633,13 +648,18 @@ def print_returns(where_from_p, conversions, returns):
 
     if where_from_p != 1 :
         print("\n||Arbitrage Explorer\n")
+        print(f"\nShowing how much can be made from a {conversions[0][0][0]} arbitrage execution\n\n")
+
         print(format_guy.format("Conversion Chain") + "{:>16s}".format("Return (%)"))
     else :
         print("\n||Conversion Chains\n")
+        print(f"\nShowing how much {conversions[0][0][-1]} can be made from {conversions[0][0][0]} {round(amount,2)}\n\n")
         if amount == 1 :
             print(format_guy.format("Conversion Chain") + "{:>16s}".format(" Effective Rate"))
         else :
             print(format_guy.format("Conversion Chain") + "{:>16s}".format("Value"))
+
+
     print()
 
     for i in range(len(combs_to_print)):
@@ -663,6 +683,7 @@ def arbitrage(where_from):
 
     """
     :type where_from: int
+
     """
 
 
@@ -882,17 +903,17 @@ def learn():
         print("\n||How It Works")
         print("\n Arbitrage occurs when identical products, commodities or anything\n"
                 "of value are sold at different prices in different places. Sometimes\n"
-                "these differences are not always. In this case our commodities are\n"
-                "forex which can be found at different effective rates across different\n"
-                "money changing institutions or people\n"
-                "\n For example Zimbabwe being an under-developed financial market,\n"
+                "it can even be happening in the same place. In this case our commodities\n"
+                "are forex which can be found at different effective rates across\n"
+                "different money changing institutions or people.\n"
+                "\n For example, Zimbabwe being an under-developed financial market,\n"
                 "offers opportunities to profit from disparities in information\n"
                 "which may lead to disparities in prices and rates. But these\n"
-                "opportunities are not always obvious. The premise is this: with\n"
-                "the right tools, it should be possible to exploit these opportunities\n"
-                "without necessarily having to end up with an undesirable currency.\n"
+                "opportunities are not always obvious. \n\n Our premise is this: with"
+                "the right tools, it should be possible\nto exploit these opportunities"
+                "without necessarily having to end\nup with an undesirable currency.\n"
                 "\n We have designed the arbitrage calculator to figure that out for\n"
-                "you, so you can focus on the more important business of managing \n"
+                "you, so you can focus on the more important business of managing\n"
                 "your your wealth.\n"
                 "\n This application allows you to gather rates from the forex \n"
                 "changing people, and does the calculations for you.")

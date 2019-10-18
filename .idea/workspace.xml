@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7d1623c-e1ee-4f59-b1bf-d635d8ee71a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/clifford.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/arbitrages2.13.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbitrages2.13.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arbvisuals.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbvisuals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_currencies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/my_currencies.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -143,7 +144,8 @@
       <workItem from="1570779378813" duration="230000" />
       <workItem from="1571268890623" duration="6013000" />
       <workItem from="1571298884747" duration="596000" />
-      <workItem from="1571320707572" duration="2466000" />
+      <workItem from="1571320707572" duration="3557000" />
+      <workItem from="1571428910072" duration="4681000" />
     </task>
     <servers />
   </component>
