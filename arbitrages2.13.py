@@ -29,7 +29,7 @@ for g in range(n):
          print("Error! That currency has already been registered. Please try again!")
     
     
-base = input('Select base currency: ')
+base = input('Select bae currency: ')
 while base not in currencies:
     print('currency not found. Please try again')
     base = input('Select base currency: ')
