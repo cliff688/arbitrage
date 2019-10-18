@@ -230,7 +230,7 @@ def compare_time():
                 print(f"Last Data Update: About {days//7} week {days%7} days ago!\n")
                 return 0
             else :
-                print(f":ast Data update: About {days//7} weeks ago")
+                print(f"Last Data update: About {days//7} weeks ago")
                 return 0
         elif days == 1:
             hours = 24 - eval(p_time[0]) + eval(n_time[0])
