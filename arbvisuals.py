@@ -31,7 +31,8 @@ def get_data():
 
     """
     Reads currency data from the csv file
-    :return: void
+    :rtype: None or list
+    :return:  list containing previous data
     """
 
 
@@ -48,6 +49,10 @@ def get_data():
     except IOError:
         return None
 
+beginner = False
+if get_data() is None:
+    beginner = True
+
 def check_data(n):
 
     """
@@ -57,7 +62,7 @@ def check_data(n):
     """
 
 
-    if get_data() == None:
+    if get_data() is None:
         clear()
         print("\nInsufficient Data. Please Update Your Data To Proceed\n")
         sleep(1.5)
@@ -82,8 +87,8 @@ def welcome():
     print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "FOREX ARBITRAGE\n\n" + "=" * 76 + "\n" * 7)
     sleep(1.5)
     clear()
-    print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "At Your Service :)\n\n" + "=" * 76 + "\n" * 4)
-    if get_data() == None :
+    print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "At Your Service :)\n\n" + "=" * 76 + "\n" * 3)
+    if beginner :
         print(" "*14 + "Tip! Forex Arbitrage Works Best With More Data\n")
         sleep(1)
     else:
@@ -344,7 +349,7 @@ def convert():
             print(f"{i + 1}. {currencies[i]}")
         starter, end = get_two_currencies()
         rate = quotes[(starter, end)][0]
-        if rate == None :
+        if rate is None :
             print(":( Rate is Unavailable. Please Update Your Data")
         else:
             while True:
@@ -389,7 +394,7 @@ def foreign():
         master_quotes = eval(master_data[2])
 
         currencies = eval(master_data[1])
-        print('\n\n||Available Currencies\n')
+        print('\n||Available Currencies\n')
         for i in range(len(currencies)):
             print(f"{i + 1}. {currencies[i]}")
         while True:
@@ -406,7 +411,7 @@ def foreign():
             except IndexError:
                 print(":( Invalid Selection. Please Try again!")
 
-        quotes = [key for key in master_quotes.keys() if key[0] == base and master_quotes[key][0] != None ]
+        quotes = [key for key in master_quotes.keys() if key[0] == base and master_quotes[key][0] is not None ]
 
         if len(quotes) == 0 :
             print(":) Insufficient Data. Please Update Data To Continue.")
@@ -439,14 +444,14 @@ def foreign():
     # @@ print the list of currencies in data base
     # @@ if none available prompt them to update data
 
-def write_data(rates, currencies, unavailable_quotes):
+def write_data(rates, currencies, new):
 
 
     """
     Writes data into csv file
     :param rates:
     :param currencies:
-    :param unavailable_quotes:
+    :param new
     :return: void
     """
 
@@ -454,20 +459,59 @@ def write_data(rates, currencies, unavailable_quotes):
     with open("my_currencies.csv", mode = 'a') as my_cs:
 
         writer = csv.writer(my_cs, delimiter = ',', lineterminator = '\r\n') #lineterminator ='\r\n'
-        writer.writerow([dt.now(), currencies, rates, unavailable_quotes])
+        writer.writerow([dt.now(), currencies, rates])
+
+def easy_rate(rate,):
+    # @@Add nil function
+    if rate == 'nil' or rate == 'Nil' or rate == 'None' or rate == 'none':
+        return (None, (None, None))
+    elif '/' in rate or ',' in rate:
+        # place , where we have the x and then delete the /
+        if '/' in rate:
+            n = rate.split('/')
+        else:
+            n = rate.split(',')
+        try:
+            n[0] = int(n[0])
+            n[1] = int(n[1])
+            n = tuple(n)
+            num_rate = float(n[1]) / float(n[0])
+            return (num_rate, n)
+        except ValueError:
+            print("Invalid Format. Please try again")
+            return None
+            #if None returned put into loop
+    else:
+        try :
+            rate = float(eval(rate))
+            if rate >0:
+                return (rate, (None, None))
+            else:
+                print(":( Rate cannot be negative")
+                return None
+        except SyntaxError :
+             print(":( SInvalid Format. Please try again")
+             return None
+        except ValueError:
+            print(":( Invalid Format. Please try again")
+            return None
+        except NameError:
+            print(":( NInvalid Format. Please try again")
+            return None
+
 
 def create(k) :
 
 
     """
 
-    Handles the process of inputing currency data data from the user
+    Handles the process of inputting currency data data from the user
     :param k: The function address whence the user came
     :return: void
 
     """
     # k is the address where user came from
-    # @@ help referals in this function get the input 4
+    # @@ help referrals in this function get the input 4
 
     clear()
     print("\n||Data Update\n")
@@ -482,7 +526,6 @@ def create(k) :
 
     currencies = []
     rates = {}
-    unavailable_quotes = []
     clear()
     print("\n||Currency Tickers\n")
     for g in range(n):
@@ -500,7 +543,7 @@ def create(k) :
 
     cls_counter = 0
     for pair in pairs:
-        # fix to allow entry of rate as a pair of values. The tuple will be stored in the dict as a second value to the pair key
+        # Allow entry of rate as a pair of values. The tuple will be stored in the dict as a second value to the pair key
         cls_counter += 1
         counter = 0
         
@@ -508,10 +551,12 @@ def create(k) :
 
         while True:
             rate = input(str(pair[0]+"/"+pair[1]+"... "))
+
+            #Keep code on top
+            # Use function easy rates
             # @@Add nil function
             if rate == 'nil' or rate == 'Nil' or rate == 'None' or rate == 'none':
                 rates[pair] = (None, (None,None))
-                unavailable_quotes.append(pair)
                 break
             elif '/' in rate or ',' in rate:
             # place , where we have the x and then delete the /
@@ -575,8 +620,114 @@ def create(k) :
                     else:
                         print(":( Invalid Entry. Please Try Again") 
                         continue           
-    write_data(rates, currencies, unavailable_quotes)
+    write_data(rates, currencies, new = True)
     back(k)
+
+def print_rates(rates):
+    print("\n||Rates\n")
+
+    print("{:<14s}".format('Pair') + "{0:>19s}".format('Rate') + "{:>30s}".format('Pair Exchange'))
+    for k in rates:
+        v = rates[k]
+        try:
+            print("{:<14s}".format(str(k[0]) + "/" + str(k[1])) + "{0:>19,.3f}".format(v[0]) + "{:>30s}".format(
+                str(v[1])))
+        except TypeError:
+            print("{:<14s}".format(str(k[0]) + "/" + str(k[1])) + "{0:>19s}".format('-----') + "{:>30s}".format(
+                str(v[1])))
+
+
+def edit():
+
+    clear()
+    previous_data = get_data()
+    currencies, rates = eval(previous_data[1]), eval(previous_data[2])
+    print("\n||Data Update\n")
+    check_data(0)
+    #print currencies here under my currencies
+    print("||My Currencies")
+    for cur in currencies:
+        print(cur)
+    print("\n1. Add A Currency\n2. Update Rates\n3. Back")
+    option = int_inputs(3)
+    clear()
+
+    if option == 1:
+        #you have to update quotes to show the new currency
+        while True:
+            new_currency = input("\n||New Currency\nEnter new currency \n>>> ")
+            error = False #Variable will tell us whether we got out of the next loop due to an error or not
+            if new_currency not in currencies:
+                currencies.append(new_currency)
+                clear()
+                print("\nCurrency successfully added to my currencies!")
+                new_pairs = list(set([pair for pair in it.permutations(currencies, 2) if pair[0] == new_currency or pair[1] == new_currency]))
+                print("The following new pairs have been created\n")
+                for pair in new_pairs:
+                    print(str(new_pairs.index(pair)+1) +'. '+ pair[0] + ' / ' + pair[1])
+                sleep(5.5)
+                clear()
+                print("\n||New Quotes\n")
+                for pair in new_pairs:
+                    while True:
+                        rate = input(str(new_pairs.index(pair)+1) +'. '+ pair[0] + ' / ' + pair[1] + "\n>>> ")
+                        rate = easy_rate(rate)
+                        if rate is None:
+                            continue
+                        rates[rate] = easy_rate(rate)
+                write_data(rates, currencies, new = False)
+                back(4)
+                break
+
+            else:
+                error = True
+                print("Oops :( This currency has already been registered")
+                print("\n1. Try again\n2. Back")
+                selection = int_inputs(2)
+                if selection == 1:
+                    continue
+                else:
+                    break
+
+        if error:
+            clear()
+            edit()
+
+    elif option == 2:
+
+        while True:
+            clear()
+            print("A new quote for A/B csn be given as A/B = rate or"
+                  "A,B = rate. \nThe rate can be given as a number eg 11.00 "
+                  "or as the sample\nof amounts you can exchange. Eg if 10 A"
+                  "gives 110 B then \nrate can be given as 10,110. See help.")
+
+            print_rates(rates)
+            new_quote = input("\nEnter new quote")
+            new_quote = new_quote.split("=")
+            pair,rate = new_quote[0],new_quote[1]
+
+            #Handling input types for pair to make it a tuple
+            if "/" in pair:
+                pair.split("/")
+            elif "," in pair:
+                pair.split(",")
+            else:
+                print(":( Invalid input, Please try again")
+
+                continue
+            rate = easy_rate(rate)
+            if rate is None:
+                continue
+            try:
+                rates[pair] = rate
+            except KeyError:
+                print(":( Invalid pair entry. Please try again")
+                continue
+        write_data(rates,currencies)
+    else:
+        data_handle()
+
 
 def print_returns(where_from_p, conversions, returns):
 
@@ -856,9 +1007,10 @@ def data_handle():
     compare_time()
     print("1. View current data")
     print("2. Update Data")
-    print("3. Back To Main Menu")
+    print("3. Create New Data")
+    print("4. Back To Main Menu")
 
-    option = int_inputs(3)
+    option = int_inputs(4)
 
     if option == 1:
 
@@ -877,20 +1029,16 @@ def data_handle():
         print("\nPlease Wait...")
         sleep(5) #Clear screen here
         clear()
-        print("\n||Rates\n")
-
-        print("{:<14s}".format('Pair') + "{0:>19s}".format('Rate') + "{:>30s}".format('Pair Exchange'))
-        for k in rates :
-            v = rates[k]
-            try :
-                print("{:<14s}".format(str(k[0]) + "/" + str(k[1])) + "{0:>19,.3f}".format(v[0])+"{:>30s}".format(str(v[1])))
-            except TypeError :
-                print("{:<14s}".format(str(k[0]) + "/" + str(k[1])) + "{0:>19s}".format('-----')+"{:>30s}".format(str(v[1])))
+        print_rates(rates)
         back(4)
 
-    elif option == 2:
-        create(4)
+    elif option==2:
+        edit()
+
     elif option == 3:
+        create(4)
+
+    elif option == 4:
         main()
 
 def learn():
