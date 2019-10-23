@@ -5,6 +5,43 @@ import itertools as it
 import os
 import csv
 
+"""
+addresses = {
+             0: main(),
+             1:convert(),
+             1.1:direct_conversion(), #there is no reason anyone'd ever want to go back to that
+             1.2:chain_conversion(),
+             1.3:reverse_conversion(), #there is no reason anyone'd ever want to go back to that
+             2:foreign(),
+             3:arbitrage(),
+             4:data_handle(),
+             4.1:view_data(), #there is no reason anyone'd ever want to go back to that
+             4.2:update_data(),
+             4.3:create_new_data
+             5:learn(),
+             6:help_direct(),
+             }
+             
+functions that call other functions = {
+             main(), #trivial case
+             convert()>>chain_conversion(), calls 4.2, 4.3, 6, 3
+             foreign(), calls 4.2 if get_data() is not None | else calls 4.3
+             arbitrage(), calls 4.2 if get_data() is not None | else calls 4.3
+             data_handle(), calls get_help()
+             }
+             
+functions that get the param where_from
+             {           
+             get_help()
+             data_handle()
+             arbitrage()
+             create()
+             edit()
+             }
+             
+"""
+
+
 def clear():
 
 
@@ -52,6 +89,15 @@ def get_data():
 beginner = False
 if get_data() is None:
     beginner = True
+
+
+def continue_process(n):
+    print("\n1. Continue Data Edit\n2. Exit")
+    selection = int_inputs(n)
+    if selection == 1:
+        return 0
+    else :
+        get_help()
 
 def check_data(n):
 
@@ -459,9 +505,9 @@ def write_data(rates, currencies, new):
     with open("my_currencies.csv", mode = 'a') as my_cs:
 
         writer = csv.writer(my_cs, delimiter = ',', lineterminator = '\r\n') #lineterminator ='\r\n'
-        writer.writerow([dt.now(), currencies, rates])
+        writer.writerow([dt.now(), currencies, rates, new])
 
-def easy_rate(rate,):
+def easy_rate(rate):
     # @@Add nil function
     if rate == 'nil' or rate == 'Nil' or rate == 'None' or rate == 'none':
         return (None, (None, None))
@@ -478,7 +524,7 @@ def easy_rate(rate,):
             num_rate = float(n[1]) / float(n[0])
             return (num_rate, n)
         except ValueError:
-            print("Invalid Format. Please try again")
+            continue_process(3)
             return None
             #if None returned put into loop
     else:
@@ -490,15 +536,14 @@ def easy_rate(rate,):
                 print(":( Rate cannot be negative")
                 return None
         except SyntaxError :
-             print(":( SInvalid Format. Please try again")
+             print(":( SInvalid Format. ")
              return None
         except ValueError:
-            print(":( Invalid Format. Please try again")
+            print(":( Invalid Format. ")
             return None
         except NameError:
-            print(":( NInvalid Format. Please try again")
+            print(":( Invalid Format. ")
             return None
-
 
 def create(k) :
 
@@ -636,7 +681,6 @@ def print_rates(rates):
             print("{:<14s}".format(str(k[0]) + "/" + str(k[1])) + "{0:>19s}".format('-----') + "{:>30s}".format(
                 str(v[1])))
 
-
 def edit():
 
     clear()
@@ -665,16 +709,19 @@ def edit():
                 print("The following new pairs have been created\n")
                 for pair in new_pairs:
                     print(str(new_pairs.index(pair)+1) +'. '+ pair[0] + ' / ' + pair[1])
-                sleep(5.5)
+                sleep(7.5)
                 clear()
-                print("\n||New Quotes\n")
+                print("\n||New Quotes\nEnter The Rates below\n")
                 for pair in new_pairs:
                     while True:
                         rate = input(str(new_pairs.index(pair)+1) +'. '+ pair[0] + ' / ' + pair[1] + "\n>>> ")
                         rate = easy_rate(rate)
                         if rate is None:
                             continue
-                        rates[rate] = easy_rate(rate)
+                        else:
+                            rates[pair] = rate
+                            break
+
                 write_data(rates, currencies, new = False)
                 back(4)
                 break
@@ -694,40 +741,71 @@ def edit():
             edit()
 
     elif option == 2:
-
+        first_time = True
         while True:
-            clear()
-            print("A new quote for A/B csn be given as A/B = rate or"
-                  "A,B = rate. \nThe rate can be given as a number eg 11.00 "
-                  "or as the sample\nof amounts you can exchange. Eg if 10 A"
-                  "gives 110 B then \nrate can be given as 10,110. See help.")
+            if first_time:
 
+                clear()
+                print("A new quote for A/B can be given as A/B = rate or"
+                      "A,B = rate. \nThe rate can be given as a number eg 11.00 "
+                      "or as the sample\nof amounts you can exchange. Eg if 10 A "
+                      "gives 110 B then \nrate can be given as 10,110. See help.")
+            else:
+                pass
             print_rates(rates)
-            new_quote = input("\nEnter new quote")
-            new_quote = new_quote.split("=")
-            pair,rate = new_quote[0],new_quote[1]
+            new_quote = input("\nEnter new quote\n>>> ")
+            try:
+                new_quote = new_quote.split("=")
+                pair,rate = new_quote[0],new_quote[1]
+            except IndexError:
+                print(":( Invalid input")
+                continue_process(4)
+                continue
 
             #Handling input types for pair to make it a tuple
             if "/" in pair:
-                pair.split("/")
-            elif "," in pair:
-                pair.split(",")
-            else:
-                print(":( Invalid input, Please try again")
+                pair = tuple(pair.split("/"))
 
+            elif "," in pair:
+                pair = tuple(pair.split(","))
+
+            else:
+                print(":( Invalid input.")
+                continue_process(4)
+                continue
+            pair = (pair[0].strip(" "), pair[1].strip(" "))
+            if pair[0] not in currencies or pair[1] not in currencies:
+                print(f"pair = {pair}")
+                print("One of the currencies was not found.")
+                continue_process(4)
+                continue
+            if pair[0]== pair[1]:
+                print("Cannot add quote of a single currency")
+                continue_process(4)
                 continue
             rate = easy_rate(rate)
             if rate is None:
+                continue_process(4)
                 continue
             try:
                 rates[pair] = rate
+                print("\n1. Continue Data Edit\n2: Done\n3. Exit")
+                selection = int_inputs(3)
+                if selection == 1:
+                    return 0
+                elif selection == 2:
+                    break
             except KeyError:
-                print(":( Invalid pair entry. Please try again")
+                print(":( Invalid pair entry.")
+                continue_process(4)
                 continue
-        write_data(rates,currencies)
+        print("\nData successfully updated!")
+        write_data(rates,currencies, new = True)
+        back(4)
+        done()
+
     else:
         data_handle()
-
 
 def print_returns(where_from_p, conversions, returns):
 
@@ -858,7 +936,6 @@ def arbitrage(where_from):
 
         currencies = eval(past_data[1])
         quotes = eval(past_data[2])
-        unavailable_quotes = eval(past_data[3])  # But the actual rate = quotes[0]
 
         num_of_currencies = len(currencies)
         n = num_of_currencies
@@ -989,12 +1066,11 @@ def arbitrage(where_from):
         else:
             print_returns(1, printable_conversions, printable_gains)
 
-
     elif option == 2:
-        if where_from == 0:
-            create(3)
-        else :
-            create(1)
+        if beginner:
+            create(where_from)
+        elif not beginner:
+            edit()
 
     elif option == 3:
         main()
@@ -1100,7 +1176,7 @@ def get_help():
     print("||Help")
     #Add Menu to allow user to navigate the help
     print("\nThis section is still under development")
-    print("1. Back to Main Menu")
+    print("1. Back")
     print("2. Exit")
     option = int_inputs(2)
     if option == 1:
@@ -1154,6 +1230,8 @@ def main():
     else:
         done()
     return 0
+
+
 
 welcome()
 main()
