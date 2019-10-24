@@ -43,18 +43,13 @@ functions that get the param where_from
 
 
 def clear():
-
-
     """Clears the screen or terminal"""
-
 
     os.system('cls')
 
+
 def done():
-
-
     """Clears the screen and dispalys closing message before closing the program"""
-
 
     clear()
     print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "Enjoy your day!\n\n" + "=" * 76 + "\n" * 7)
@@ -63,28 +58,26 @@ def done():
     exit()
     return 0
 
+
 def get_data():
-
-
     """
     Reads currency data from the csv file
     :rtype: None or list
     :return:  list containing previous data
     """
 
-
-    try :
-        with open("my_currencies.csv", 'r') as mc:
-            lead = csv.reader(mc, delimiter = ',')
+    try:
+        with open("my_currencies.csv") as mc:
+            lead = csv.reader(mc, delimiter=',')
             data = [line for line in lead if len(line) != 0]
             if len(data) == 0:
-                previous_data = None
-                return previous_data
-            else:  
+                return None
+            else:
                 previous_data = data[-1]
-        return previous_data
+                return previous_data
     except IOError:
         return None
+
 
 beginner = False
 if get_data() is None:
@@ -92,21 +85,25 @@ if get_data() is None:
 
 
 def continue_process(n):
+    """
+
+    :param n:
+    :return:
+    """
     print("\n1. Continue Data Edit\n2. Exit")
     selection = int_inputs(n)
     if selection == 1:
         return 0
-    else :
+    else:
         get_help()
 
-def check_data(n):
 
+def check_data(n):
     """
     Checks if data exits in the csv file should the user attempt to use it. if none is available
     it automatically refers them to the data update by function call
     :return: void
     """
-
 
     if get_data() is None:
         clear()
@@ -118,15 +115,13 @@ def check_data(n):
         create(n)
         return 0
 
+
 def welcome():
-
-
     """Displays the formatted start-up messages on the screen"""
-
 
     clear()
     os.system('color 0b')
-    print("\n"*6+"="*76+"\n\n"+" "*21+ "FOURSCORE FINANCIAL TECHNOLOGIES\n\n"+"="*76+"\n"*7)
+    print("\n" * 6 + "=" * 76 + "\n\n" + " " * 21 + "FOURSCORE FINANCIAL TECHNOLOGIES\n\n" + "=" * 76 + "\n" * 7)
 
     sleep(3)
     clear()
@@ -134,19 +129,17 @@ def welcome():
     sleep(1.5)
     clear()
     print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "At Your Service :)\n\n" + "=" * 76 + "\n" * 3)
-    if beginner :
-        print(" "*14 + "Tip! Forex Arbitrage Works Best With More Data\n")
+    if beginner:
+        print(" " * 16 + "Tip! Forex Arbitrage Works Best With More Data\n")
         sleep(1)
     else:
-        print("\n"*3)
+        print("\n" * 3)
     sleep(2)
     clear()
 
+
 def int_inputs(n):
-
-
     """An error handling function to get integer inputs from the user"""
-
 
     while True:
         try:
@@ -160,12 +153,11 @@ def int_inputs(n):
             print("Invalid Entry :( Please Try again")
             continue
 
-def back(n):
 
+def back(n):
     """This function displays the options the user has after they are done running None type returning funtions.
     It takes their location as an integer which represents their current function call. Depending on their choice
     they can be taken to their previous menu or they can exit the application"""
-
 
     print("\n||Where To Next?\n")
     print("1. Back")
@@ -186,11 +178,9 @@ def back(n):
     else:
         done()
 
+
 def help_direct():
-
-
     """Sends a user to the help menu after a number of invalid inputs"""
-
 
     clear()
     print("Please refer to Help")
@@ -201,19 +191,17 @@ def help_direct():
         get_help()
     elif option == 2:
         pass
-    return 
+    return
+
 
 def compare_time():
-
-
     """This function is a poorly designed attempt at calculating the time that has passed since the last data
     entry. A better way to do it would have been to use the epoch time instead or maybe master the time module
     better, but it was not until the middle of it's design that i realised i could have done it better. The sheer
     number of variables used is mind boggling, even to me. But I am not ready to tear down the code. The next
     version will, however, be better!"""
 
-
-    if get_data() == None :
+    if get_data() is None:
         print("No Data Found\n")
         return 0
     previous = get_data()[0].split(" ")
@@ -222,44 +210,44 @@ def compare_time():
     n_time = now[1].split(":")
     p_time = previous[1].split(":")
     now_date = now[0].split("-")
-    
+
     p_date = previous[0].split("-")
 
     ydiff = eval(now_date[0]) - eval(p_date[0])
-    
+
     # eval() wont take it as int if it has a 0 at start
-    if now_date[1][0]=="0":
+    if now_date[1][0] == "0":
         now_date[1] = now_date[1].replace("0", '')
 
-    if p_date[1][0]=="0":
+    if p_date[1][0] == "0":
         p_date[1] = p_date[1].replace("0", '')
-    
+
     mdiff = eval(now_date[1]) - eval(p_date[1])
 
-    if now_date[2][0]=="0":
+    if now_date[2][0] == "0":
         now_date[2] = now_date[2].replace("0", '')
     # eval() wont take it as int if it has a 0 at start
-    if p_date[2][0]=="0":
+    if p_date[2][0] == "0":
         p_date[2] = p_date[2].replace("0", '')
 
     ddiff = eval(now_date[2]) - eval(p_date[2])
 
-    if n_time[0][0]=="0" and n_time[0][1] != "0":
+    if n_time[0][0] == "0" and n_time[0][1] != "0":
         n_time[0] = n_time[0].replace("0", '')
 
-    if n_time[1][0]=="0" and n_time[1][1] != "0":
+    if n_time[1][0] == "0" and n_time[1][1] != "0":
         n_time[1] = n_time[1].replace("0", '')
 
-    if p_time[0][0]=="0" and p_time[0][1] != "0":
+    if p_time[0][0] == "0" and p_time[0][1] != "0":
         p_time[0] = p_time[0].replace("0", '')
 
-    if p_time[1][0]=="0" and p_time[1][1] != "0":
+    if p_time[1][0] == "0" and p_time[1][1] != "0":
         p_time[1] = p_time[1].replace("0", '')
 
     n_h_diff = eval(n_time[0]) - eval(p_time[0])
     p_h_diff = eval(n_time[1]) - eval(p_time[1])
 
-    #Checking for negatives
+    # Checking for negatives
     if p_h_diff < 0:
         p_h_diff += 60
         n_h_diff -= 1
@@ -278,10 +266,10 @@ def compare_time():
                 print(f"Last Data Update: About A Week Ago!\n")
                 return 0
             elif days // 7 == 1 and days >= 3:
-                print(f"Last Data Update: About {days//7} week {days%7} days ago!\n")
+                print(f"Last Data Update: About {days // 7} week {days % 7} days ago!\n")
                 return 0
-            else :
-                print(f"Last Data update: About {days//7} weeks ago")
+            else:
+                print(f"Last Data update: About {days // 7} weeks ago")
                 return 0
         elif days == 1:
             hours = 24 - eval(p_time[0]) + eval(n_time[0])
@@ -293,7 +281,7 @@ def compare_time():
                 hours -= 1
                 minutes += 60
             if hours > 24:
-                print(f"Last Data Update: 1 day, {hours%24} hours and {minutes} minutes ago!\n")
+                print(f"Last Data Update: 1 day, {hours % 24} hours and {minutes} minutes ago!\n")
                 return 0
             else:
                 print(f"Last Data Update: {hours} hours, {minutes} minutes ago!\n")
@@ -309,14 +297,12 @@ def compare_time():
         else:
             print(f"last Data Update: {p_h_diff} minutes ago!\n")
 
+
 def get_two_currencies():
-
-
     """
     gets the user to select two currencies
     :return: tuple of two currencies (start, end)
     """
-
 
     check_data(1)
     currencies = eval(get_data()[1])
@@ -330,27 +316,30 @@ def get_two_currencies():
 
             break
         except ValueError:
-            if starter in currencies :
+            if starter in currencies:
                 break
             else:
                 print('Currency Not Found. Please try again!')
         except IndexError:
             print("Invalid Selection. Please Try again")
-    while True :
+    while True:
         end = input("\nSelect Final Currency   >>> ")
 
         try:
             end = int(end)
             end = currencies[end - 1]
             if starter == end:
-                print("Starter Currency cannot be equal to Final Currency.\nFor that kind of trading, select 'Find An Opportunity'\nfrom Main Menu.")
+                print(
+                    "Starter Currency cannot be equal to Final Currency.\nFor that kind of trading, select 'Find An "
+                    "Opportunity'\nfrom Main Menu.")
                 continue
             break
         except ValueError:
             if end in currencies:
                 if starter == end:
                     print(
-                        "Starter Currency cannot be equal to Final Currency.\nFor that kind of trading, select 'Find An Opportunity'\nfrom the Main Menu.")
+                        "Starter Currency cannot be equal to Final Currency.\nFor that kind of trading, select 'Find "
+                        "An Opportunity'\nfrom the Main Menu.")
                     continue
                 break
             else:
@@ -358,18 +347,15 @@ def get_two_currencies():
         except IndexError:
             print("Invalid Selection. Please Try again")
 
+    return starter, end
 
-    return (starter,end)
 
 def convert():
-
-
     """
     Convert Menu. Allows user to do a direct conversion locally or calls arbitrage() to perform chain conversion
     Does a direct conversion of two currencies
     :return: void
     """
-
 
     clear()
     print("\n||Currency conversions\n")
@@ -395,19 +381,19 @@ def convert():
             print(f"{i + 1}. {currencies[i]}")
         starter, end = get_two_currencies()
         rate = quotes[(starter, end)][0]
-        if rate is None :
+        if rate is None:
             print(":( Rate is Unavailable. Please Update Your Data")
         else:
             while True:
-                try :
+                try:
                     if option == 1:
                         num = float(input(f"\nEnter Starting Value    >>> {starter} "))
-                        print(f"\n{starter} {round(num,2)} >> {end} {round(num * rate,2)}")
+                        print(f"\n{starter} {round(num, 2)} >> {end} {round(num * rate, 2)}")
                         break
                     else:
                         num = float(input(f"\nEnter Ending Value    >>> {end} "))
-                        print(f"\n{starter} {round(num/rate,3)} >> {end} {num}")
-                        print(f"\nYou need {starter} {round(num/rate,3)} to get {end} {num} at {rate}")
+                        print(f"\n{starter} {round(num / rate, 3)} >> {end} {num}")
+                        print(f"\nYou need {starter} {round(num / rate, 3)} to get {end} {num} at {rate}")
                         break
                 except ValueError:
                     print(":( Please Try Again")
@@ -419,6 +405,7 @@ def convert():
 
     else:
         main()
+
 
 def foreign():
     # @@ help referrals in this function get the input 2
@@ -433,7 +420,7 @@ def foreign():
     print("2. Update and use data")
     print("3. Main Menu")
     option = int_inputs(3)
-    if option == 1 :
+    if option == 1:
         clear()
         check_data(2)
         master_data = get_data()
@@ -457,9 +444,9 @@ def foreign():
             except IndexError:
                 print(":( Invalid Selection. Please Try again!")
 
-        quotes = [key for key in master_quotes.keys() if key[0] == base and master_quotes[key][0] is not None ]
+        quotes = [key for key in master_quotes.keys() if key[0] == base and master_quotes[key][0] is not None]
 
-        if len(quotes) == 0 :
+        if len(quotes) == 0:
             print(":) Insufficient Data. Please Update Data To Continue.")
             sleep(1)
             print("\nReferring To Data Centre\n\n Please Wait...")
@@ -478,21 +465,23 @@ def foreign():
         print('{:<10s}'.format("Currency") + '{:>20}'.format("Value"))
         print()
         for key in quotes:
-            print('{:<10s}'.format(key[1]) + '{:s}'.format('|') + '{:>19,.2f}'.format(num*master_quotes[key][0]))
-        print("\nThis section only shows the foreign value when calculated \nusing direct rates, your money might actually be worth more\nin some of"
-              " the currencies! "
-              "To see how much more it might\nbe worth, visit 'Convert A Currency' from the Main Menu and\nselect 'Try Chain Conversion'")
+            print('{:<10s}'.format(key[1]) + '{:s}'.format('|') + '{:>19,.2f}'.format(num * master_quotes[key][0]))
+        print(
+            "\nThis section only shows the foreign value when calculated \nusing direct rates, your money might "
+            "actually be worth more\nin some of "
+            " the currencies! "
+            "To see how much more it might\nbe worth, visit 'Convert A Currency' from the Main Menu and\nselect 'Try "
+            "Chain Conversion'")
         back(2)
-    elif option == 2 :
+    elif option == 2:
         create(2)
     else:
         main()
     # @@ print the list of currencies in data base
     # @@ if none available prompt them to update data
 
+
 def write_data(rates, currencies, new):
-
-
     """
     Writes data into csv file
     :param rates:
@@ -501,16 +490,20 @@ def write_data(rates, currencies, new):
     :return: void
     """
 
-
-    with open("my_currencies.csv", mode = 'a') as my_cs:
-
-        writer = csv.writer(my_cs, delimiter = ',', lineterminator = '\r\n') #lineterminator ='\r\n'
+    with open("my_currencies.csv", mode='a') as my_cs:
+        writer = csv.writer(my_cs, delimiter=',', lineterminator='\n')
         writer.writerow([dt.now(), currencies, rates, new])
 
+
 def easy_rate(rate):
+    """
+
+    :param rate:
+    :return:
+    """
     # @@Add nil function
     if rate == 'nil' or rate == 'Nil' or rate == 'None' or rate == 'none':
-        return (None, (None, None))
+        return None, (None, None)
     elif '/' in rate or ',' in rate:
         # place , where we have the x and then delete the /
         if '/' in rate:
@@ -522,22 +515,22 @@ def easy_rate(rate):
             n[1] = int(n[1])
             n = tuple(n)
             num_rate = float(n[1]) / float(n[0])
-            return (num_rate, n)
+            return num_rate, n
         except ValueError:
             continue_process(3)
             return None
-            #if None returned put into loop
+            # if None returned put into loop
     else:
-        try :
+        try:
             rate = float(eval(rate))
-            if rate >0:
-                return (rate, (None, None))
+            if rate > 0:
+                return rate, (None, None)
             else:
                 print(":( Rate cannot be negative")
                 return None
-        except SyntaxError :
-             print(":( SInvalid Format. ")
-             return None
+        except SyntaxError:
+            print(":( SInvalid Format. ")
+            return None
         except ValueError:
             print(":( Invalid Format. ")
             return None
@@ -545,9 +538,8 @@ def easy_rate(rate):
             print(":( Invalid Format. ")
             return None
 
-def create(k) :
 
-
+def create(k):
     """
 
     Handles the process of inputting currency data data from the user
@@ -559,7 +551,7 @@ def create(k) :
     # @@ help referrals in this function get the input 4
 
     clear()
-    print("\n||Data Update\n")
+    print("\n||Create New Data\n")
     print("Enter Number of Currencies ")
     while True:
         n = int_inputs(25)
@@ -567,7 +559,6 @@ def create(k) :
             break
         else:
             print("At Least Two Currencies Required\nEnter Number of Currencies\n")
-
 
     currencies = []
     rates = {}
@@ -588,23 +579,24 @@ def create(k) :
 
     cls_counter = 0
     for pair in pairs:
-        # Allow entry of rate as a pair of values. The tuple will be stored in the dict as a second value to the pair key
+        # Allow entry of rate as a pair of values. The tuple will be stored in the dict as a second value to the pair
+        # key
         cls_counter += 1
         counter = 0
-        
+
         # the counter keeps track of the number of failed attempts and then suggests they go to help
 
         while True:
-            rate = input(str(pair[0]+"/"+pair[1]+"... "))
+            rate = input(str(pair[0] + "/" + pair[1] + "... "))
 
-            #Keep code on top
+            # Keep code on top
             # Use function easy rates
             # @@Add nil function
             if rate == 'nil' or rate == 'Nil' or rate == 'None' or rate == 'none':
-                rates[pair] = (None, (None,None))
+                rates[pair] = (None, (None, None))
                 break
             elif '/' in rate or ',' in rate:
-            # place , where we have the x and then delete the /
+                # place , where we have the x and then delete the /
                 if '/' in rate:
                     n = rate.split('/')
                 else:
@@ -613,7 +605,7 @@ def create(k) :
                     n[0] = int(n[0])
                     n[1] = int(n[1])
                     n = tuple(n)
-                    num_rate = float(n[1])/float(n[0])
+                    num_rate = float(n[1]) / float(n[0])
                     rates[pair] = tuple([num_rate, n])
                     if cls_counter % 3 == 0:
                         clear()
@@ -627,9 +619,9 @@ def create(k) :
                         print("Invalid Format. Please try again")
                     continue
             else:
-                try :
+                try:
                     rate = float(eval(rate))
-                except SyntaxError :
+                except SyntaxError:
                     counter += 1
                     if counter > 3:
                         print("Please Refer to Help.")
@@ -639,10 +631,9 @@ def create(k) :
                         print("Invalid Format. Please try again")
                         continue
 
-
                 if type(rate) == float:
                     if rate > 0:
-                        rates[pair] = (rate, (None,None))
+                        rates[pair] = (rate, (None, None))
                         if cls_counter % 3 == 0:
                             clear()
                             print("\n\n")
@@ -657,18 +648,23 @@ def create(k) :
                             print(":( Rate Cannot Be Negative. Please Try Again.")
                 else:
                     counter += 1
-                    if counter > 3 :
+                    if counter > 3:
                         print(":( Please Refer To Help")
                         help_direct()
                         continue
-                        #@@ Allow them to navigate to help from here
+                        # @@ Allow them to navigate to help from here
                     else:
-                        print(":( Invalid Entry. Please Try Again") 
-                        continue           
-    write_data(rates, currencies, new = True)
+                        print(":( Invalid Entry. Please Try Again")
+                        continue
+    write_data(rates, currencies, new=True)
     back(k)
 
+
 def print_rates(rates):
+    """
+
+    :param rates:
+    """
     print("\n||Rates\n")
 
     print("{:<14s}".format('Pair') + "{0:>19s}".format('Rate') + "{:>30s}".format('Pair Exchange'))
@@ -681,14 +677,19 @@ def print_rates(rates):
             print("{:<14s}".format(str(k[0]) + "/" + str(k[1])) + "{0:>19s}".format('-----') + "{:>30s}".format(
                 str(v[1])))
 
-def edit():
 
+def edit():
+    """
+
+    :return:
+    """
     clear()
+    check_data(4)
     previous_data = get_data()
     currencies, rates = eval(previous_data[1]), eval(previous_data[2])
     print("\n||Data Update\n")
     check_data(0)
-    #print currencies here under my currencies
+    # print currencies here under my currencies
     print("||My Currencies")
     for cur in currencies:
         print(cur)
@@ -697,24 +698,25 @@ def edit():
     clear()
 
     if option == 1:
-        #you have to update quotes to show the new currency
+        # you have to update quotes to show the new currency
         while True:
             new_currency = input("\n||New Currency\nEnter new currency \n>>> ")
-            error = False #Variable will tell us whether we got out of the next loop due to an error or not
+            error = False  # Variable will tell us whether we got out of the next loop due to an error or not
             if new_currency not in currencies:
                 currencies.append(new_currency)
                 clear()
                 print("\nCurrency successfully added to my currencies!")
-                new_pairs = list(set([pair for pair in it.permutations(currencies, 2) if pair[0] == new_currency or pair[1] == new_currency]))
+                new_pairs = list(set([pair for pair in it.permutations(currencies, 2) if
+                                      pair[0] == new_currency or pair[1] == new_currency]))
                 print("The following new pairs have been created\n")
                 for pair in new_pairs:
-                    print(str(new_pairs.index(pair)+1) +'. '+ pair[0] + ' / ' + pair[1])
+                    print(str(new_pairs.index(pair) + 1) + '. ' + pair[0] + ' / ' + pair[1])
                 sleep(7.5)
                 clear()
                 print("\n||New Quotes\nEnter The Rates below\n")
                 for pair in new_pairs:
                     while True:
-                        rate = input(str(new_pairs.index(pair)+1) +'. '+ pair[0] + ' / ' + pair[1] + "\n>>> ")
+                        rate = input(str(new_pairs.index(pair) + 1) + '. ' + pair[0] + ' / ' + pair[1] + "\n>>> ")
                         rate = easy_rate(rate)
                         if rate is None:
                             continue
@@ -722,7 +724,7 @@ def edit():
                             rates[pair] = rate
                             break
 
-                write_data(rates, currencies, new = False)
+                write_data(rates, currencies, new=False)
                 back(4)
                 break
 
@@ -756,13 +758,13 @@ def edit():
             new_quote = input("\nEnter new quote\n>>> ")
             try:
                 new_quote = new_quote.split("=")
-                pair,rate = new_quote[0],new_quote[1]
+                pair, rate = new_quote[0], new_quote[1]
             except IndexError:
                 print(":( Invalid input")
                 continue_process(4)
                 continue
 
-            #Handling input types for pair to make it a tuple
+            # Handling input types for pair to make it a tuple
             if "/" in pair:
                 pair = tuple(pair.split("/"))
 
@@ -779,7 +781,7 @@ def edit():
                 print("One of the currencies was not found.")
                 continue_process(4)
                 continue
-            if pair[0]== pair[1]:
+            if pair[0] == pair[1]:
                 print("Cannot add quote of a single currency")
                 continue_process(4)
                 continue
@@ -800,16 +802,15 @@ def edit():
                 continue_process(4)
                 continue
         print("\nData successfully updated!")
-        write_data(rates,currencies, new = True)
+        write_data(rates, currencies, new=True)
         back(4)
         done()
 
     else:
         data_handle()
 
+
 def print_returns(where_from_p, conversions, returns):
-
-
     """
 
     Manages the business of printing the results from arbitrage calculations aesthetically
@@ -821,13 +822,13 @@ def print_returns(where_from_p, conversions, returns):
 
     """
 
-
     clear()
     if where_from_p == 0 or where_from_p == 3:
         try:
             conversions[0][0]
         except IndexError:
-            print("\n\nOOps! :( \nNo Such Results Available\n\nTry using a different base currency or adding\nmore data")
+            print(
+                "\n\nOOps! :( \nNo Such Results Available\n\nTry using a different base currency or adding\nmore data")
             back(3)
     combs_to_print = [[] for o in range(len(conversions))]
     for combs in conversions:
@@ -840,10 +841,9 @@ def print_returns(where_from_p, conversions, returns):
                     n += per[i]
             combs_to_print[conversions.index(combs)].append(n)
 
-
     returns_to_print = [[] for o in range(len(conversions))]
 
-    if where_from_p == 1 :
+    if where_from_p == 1:
         print("\n|Select an option\n\n1. Start With Amount To Convert\n2. Show Results In Terms Of Rates")
         option_p = int_inputs(2)
         if option_p == 1:
@@ -853,12 +853,11 @@ def print_returns(where_from_p, conversions, returns):
                     break
                 except ValueError:
                     print(":( Please Try Again")
-        else :
+        else:
             amount = 1
 
     else:
         amount = 100
-
 
     for return_list in returns:
         for n in return_list:
@@ -875,19 +874,19 @@ def print_returns(where_from_p, conversions, returns):
     format_guy = "{:<" + str(max_len) + "}"
     clear()
 
-    if where_from_p != 1 :
+    if where_from_p != 1:
         print("\n||Arbitrage Explorer\n")
-        print(f"\nShowing how much can be made from a {conversions[0][0][0]}git  arbitrage execution\n\n")
+        print(f"\nShowing how much can be made from a {conversions[0][0][0]} arbitrage execution\n\n")
 
         print(format_guy.format("Conversion Chain") + "{:>16s}".format("Return (%)"))
-    else :
+    else:
         print("\n||Conversion Chains\n")
-        print(f"\nShowing how much {conversions[0][0][-1]} can be made from {conversions[0][0][0]} {round(amount,2)}\n\n")
-        if amount == 1 :
+        print(
+            f"\nShowing how much {conversions[0][0][-1]} can be made from {conversions[0][0][0]} {round(amount, 2)}\n\n")
+        if amount == 1:
             print(format_guy.format("Conversion Chain") + "{:>16s}".format(" Effective Rate"))
-        else :
+        else:
             print(format_guy.format("Conversion Chain") + "{:>16s}".format("Value"))
-
 
     print()
 
@@ -896,32 +895,29 @@ def print_returns(where_from_p, conversions, returns):
             if where_from_p != 1:
                 print(format_guy.format(combs_to_print[i][j]), "{:>15,.2f}".format(returns_to_print[i][j]))
             else:
-                if amount == 1 :
+                if amount == 1:
                     print(format_guy.format(combs_to_print[i][j]), "{:>15,.4f}".format(returns_to_print[i][j]))
                 else:
                     print(format_guy.format(combs_to_print[i][j]), "{:>15,.2f}".format(returns_to_print[i][j]))
 
-
-    if where_from_p == 0 or where_from_p == 3 :
+    if where_from_p == 0 or where_from_p == 3:
         back(3)
-    else :
+    else:
         back(1)
 
+
 def arbitrage(where_from):
-
-
     """
     :type where_from: int
 
     """
-
 
     # @@ help referrals in this function get the input 3
 
     clear()
     if where_from == 0 or where_from == 3:
         print("\n||Arbitrage Explorer\n")
-    else :
+    else:
         print("\n||Chain Conversions\n")
     print("1. Use currently available data")
     print("2. Update and use data")
@@ -949,23 +945,23 @@ def arbitrage(where_from):
             return 0
 
         if where_from == 0 or where_from == 3:
-            while True :
+            while True:
 
                 base = input("\n|Select Base Currency\n>>> ")
                 try:
                     base = int(base)
                     base = currencies[base - 1]
                     break
-                except ValueError :
+                except ValueError:
                     if base in currencies:
                         break
                     else:
                         print('Currency Not Found. Please try again!')
-                except IndexError :
+                except IndexError:
                     print("Invalid Selection. Please Try again")
             currencies.append(base)
 
-        else :
+        else:
 
             starter, end = get_two_currencies()
 
@@ -980,11 +976,12 @@ def arbitrage(where_from):
             mc = [list(set([k for k in it.permutations(currencies, order + 1) if k[0] == k[order]])) for order in
                   orders]
         else:
-            orders = [o for o in range(1, n -1 )]
+            orders = [o for o in range(1, n - 1)]
             indeterminate_permutations = [[] for i in orders]
             returns = [[] for o in orders]
             # orders corresponds to number of conversions
-            mc = [list(set([k for k in it.permutations(currencies, order + 1 ) if k[0] == starter and k[order] == end ])) for order in
+            mc = [list(set([k for k in it.permutations(currencies, order + 1) if k[0] == starter and k[order] == end]))
+                  for order in
                   orders]
         # the order corresponds to the number of currencies involved
 
@@ -1016,10 +1013,10 @@ def arbitrage(where_from):
                         break
 
                 if where_from == 0 or where_from == 3:
-                    if num - 1 > 0 :
+                    if num - 1 > 0:
                         p_returns[g].append(num)
                         positive_permutations[g].append(combinations[k])
-                    else :
+                    else:
                         n_returns[g].append(num)
                         negative_permutations[g].append(combinations[k])
 
@@ -1030,14 +1027,14 @@ def arbitrage(where_from):
         p_unsorted = []
         p_unsorted_results = []
         if where_from == 0 or where_from == 3:
-            for item in positive_permutations :
+            for item in positive_permutations:
                 p_unsorted += item
-            for r in p_returns :
+            for r in p_returns:
                 p_unsorted_results += r
-        else :
-            for item in nmc :
+        else:
+            for item in nmc:
                 p_unsorted += item
-            for r in returns :
+            for r in returns:
                 p_unsorted_results += r
 
         p_sorted = sorted(p_unsorted_results, reverse=True)
@@ -1048,7 +1045,6 @@ def arbitrage(where_from):
         printable_conversions.append(all_sorted)
         printable_gains = []
         printable_gains.append(p_sorted)
-
 
         # check if returns align with their permutations after this process
 
@@ -1075,9 +1071,13 @@ def arbitrage(where_from):
     elif option == 3:
         main()
 
+
 def data_handle():
+    """
+
+    """
     # @@ help referrals in this function get the input 4
-    
+
     clear()
     print("\n||Data Centre\n")
     compare_time()
@@ -1103,12 +1103,12 @@ def data_handle():
         for i in range(num_of_currencies):
             print(f"{i + 1}. {currencies[i]}")
         print("\nPlease Wait...")
-        sleep(5) #Clear screen here
+        sleep(5)  # Clear screen here
         clear()
         print_rates(rates)
         back(4)
 
-    elif option==2:
+    elif option == 2:
         edit()
 
     elif option == 3:
@@ -1117,7 +1117,11 @@ def data_handle():
     elif option == 4:
         main()
 
+
 def learn():
+    """
+
+    """
     clear()
     print("\n||Learn")
     print("\nLearn About?\n\n1. How it works\n2. Tips on getting rates")
@@ -1126,40 +1130,40 @@ def learn():
         clear()
         print("\n||How It Works")
         print("\n Arbitrage occurs when identical products, commodities or anything\n"
-                "of value are sold at different prices in different places. Sometimes\n"
-                "it can even be happening in the same place. In this case our commodities\n"
-                "are forex which can be found at different effective rates across\n"
-                "different money changing institutions or people.\n"
-                "\n For example, Zimbabwe being an under-developed financial market,\n"
-                "offers opportunities to profit from disparities in information\n"
-                "which may lead to disparities in prices and rates. But these\n"
-                "opportunities are not always obvious. \n\n Our premise is this: with"
-                "the right tools, it should be possible\nto exploit these opportunities"
-                "without necessarily having to end\nup with an undesirable currency.\n"
-                "\n We have designed the arbitrage calculator to figure that out for\n"
-                "you, so you can focus on the more important business of managing\n"
-                "your your wealth.\n"
-                "\n This application allows you to gather rates from the forex \n"
-                "changing people, and does the calculations for you.")
+              "of value are sold at different prices in different places. Sometimes\n"
+              "it can even be happening in the same place. In this case our commodities\n"
+              "are forex which can be found at different effective rates across\n"
+              "different money changing institutions or people.\n"
+              "\n For example, Zimbabwe being an under-developed financial market,\n"
+              "offers opportunities to profit from disparities in information\n"
+              "which may lead to disparities in prices and rates. But these\n"
+              "opportunities are not always obvious. \n\n Our premise is this: with"
+              "the right tools, it should be possible\nto exploit these opportunities"
+              "without necessarily having to end\nup with an undesirable currency.\n"
+              "\n We have designed the arbitrage calculator to figure that out for\n"
+              "you, so you can focus on the more important business of managing\n"
+              "your your wealth.\n"
+              "\n This application allows you to gather rates from the forex \n"
+              "changing people, and does the calculations for you.")
     else:
         clear()
         print("\n||Getting Currencies")
         print("\n As a rule, when finding these currency rates, you should always \n"
-          "take the ones that gives you more of the currency you're getting.\n"
-          "i.e whenever you get from currency A to currency B, take the rate\n"
-          "that gives you the largest value of B divided by A -- more B for \n"
-          "less A. All the other rates are not of any use to you.\n"
-          "\n For example,\n"
-          " If there are three rates for USD > ZWL : 10/100, 10/110, 10/120\n"
-          "take the last one -- ALWAYS, even if you don't want the end \n"
-          "currency, just feed the rate into the data.\n\n"
-          "You can also benefit from the more expensive rates as they are\n"
-          "most likely to have more lucrative B > A rates. E.g our changer\n"
-          "with the USD 10 to ZWL 100 most likely offers the best ZWL to USD\n"
-          "price. Remember that trick.\n"
-          "\n NB See the Help section to see how you can input your currency\n"
-          "data easily, without having to do the calculations to determine the\n"
-          "actual mathematical rate")
+              "take the ones that gives you more of the currency you're getting.\n"
+              "i.e whenever you get from currency A to currency B, take the rate\n"
+              "that gives you the largest value of B divided by A -- more B for \n"
+              "less A. All the other rates are not of any use to you.\n"
+              "\n For example,\n"
+              " If there are three rates for USD > ZWL : 10/100, 10/110, 10/120\n"
+              "take the last one -- ALWAYS, even if you don't want the end \n"
+              "currency, just feed the rate into the data.\n\n"
+              "You can also benefit from the more expensive rates as they are\n"
+              "most likely to have more lucrative B > A rates. E.g our changer\n"
+              "with the USD 10 to ZWL 100 most likely offers the best ZWL to USD\n"
+              "price. Remember that trick.\n"
+              "\n NB See the Help section to see how you can input your currency\n"
+              "data easily, without having to do the calculations to determine the\n"
+              "actual mathematical rate")
     print("\n1. Back to Learn")
     print("2. Back to Main Menu")
     print("3. Exit")
@@ -1171,10 +1175,14 @@ def learn():
     else:
         done()
 
+
 def get_help():
+    """
+
+    """
     clear()
     print("||Help")
-    #Add Menu to allow user to navigate the help
+    # Add Menu to allow user to navigate the help
     print("\nThis section is still under development")
     print("1. Back")
     print("2. Exit")
@@ -1184,8 +1192,11 @@ def get_help():
     elif option == 1:
         done()
 
+
 def about():
-    
+    """
+
+    """
     clear()
     print("\nDeveloped by Fourscore Financial Technologies\nGitHub @@Cliff688\nVersion 2019.1.10.2\nCopyright 2019\n"
           "\n||Disclaimer\n\nThe developer will not be held responsible for any loss \nof money incurred while attempting "
@@ -1200,7 +1211,12 @@ def about():
     elif option == 2:
         done()
 
+
 def main():
+    """
+
+    :return:
+    """
     clear()
     print("\n||Main Menu\n")
     compare_time()
@@ -1230,7 +1246,6 @@ def main():
     else:
         done()
     return 0
-
 
 
 welcome()
