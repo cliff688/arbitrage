@@ -1,4 +1,5 @@
-# @@ Program should be able to catch errors in opening csv file, delete the file and tell the user to update data to continue
+# @@ Program should be able to catch errors in opening csv file, delete the file and tell the user to update data to
+# continue
 from time import sleep
 from datetime import datetime as dt
 import itertools as it
@@ -269,7 +270,7 @@ def compare_time():
                 print(f"Last Data Update: About {days // 7} week {days % 7} days ago!\n")
                 return 0
             else:
-                print(f"Last Data update: About {days // 7} weeks ago")
+                print(f"Last Data update: About {days // 7} weeks ago\n")
                 return 0
         elif days == 1:
             hours = 24 - eval(p_time[0]) + eval(n_time[0])
@@ -293,7 +294,7 @@ def compare_time():
     else:
         if n_h_diff != 0:
             print(f"last Data Update: {n_h_diff} hours, {p_h_diff} minutes ago!\n")
-            return 0
+
         else:
             print(f"last Data Update: {p_h_diff} minutes ago!\n")
 
@@ -794,15 +795,17 @@ def edit():
                 print("\n1. Continue Data Edit\n2: Done\n3. Exit")
                 selection = int_inputs(3)
                 if selection == 1:
-                    return 0
+                    continue
                 elif selection == 2:
                     break
             except KeyError:
                 print(":( Invalid pair entry.")
                 continue_process(4)
                 continue
-        print("\nData successfully updated!")
+
         write_data(rates, currencies, new=True)
+        clear()
+        print("\nData successfully updated!")
         back(4)
         done()
 
@@ -960,12 +963,6 @@ def arbitrage(where_from):
                 except IndexError:
                     print("Invalid Selection. Please Try again")
             currencies.append(base)
-
-        else:
-
-            starter, end = get_two_currencies()
-
-        if where_from == 0 or where_from == 3:
             orders = [o for o in range(3, n + 1)]
             p_returns = [[] for o in orders]
             n_returns = [[] for o in orders]
@@ -975,14 +972,18 @@ def arbitrage(where_from):
             returns = [[] for i in orders]
             mc = [list(set([k for k in it.permutations(currencies, order + 1) if k[0] == k[order]])) for order in
                   orders]
+
         else:
-            orders = [o for o in range(1, n - 1)]
+
+            starter, end = get_two_currencies()
+            orders = [o for o in range(1, n)]
             indeterminate_permutations = [[] for i in orders]
             returns = [[] for o in orders]
             # orders corresponds to number of conversions
             mc = [list(set([k for k in it.permutations(currencies, order + 1) if k[0] == starter and k[order] == end]))
                   for order in
                   orders]
+
         # the order corresponds to the number of currencies involved
 
         for combinations in mc:
@@ -1000,7 +1001,6 @@ def arbitrage(where_from):
 
                         try:
                             num *= quotes[pair][0]
-
 
                         except TypeError:
 
@@ -1199,9 +1199,11 @@ def about():
     """
     clear()
     print("\nDeveloped by Fourscore Financial Technologies\nGitHub @@Cliff688\nVersion 2019.1.10.2\nCopyright 2019\n"
-          "\n||Disclaimer\n\nThe developer will not be held responsible for any loss \nof money incurred while attempting "
-          "to profit using\nthe methods developed in this application. Nor will the \ndeveloper hold any responsibility for "
-          "any harm caused \nto the user's computer or any data loss thereof. By \nusing this application, you, the user "
+          "\n||Disclaimer\n\nThe developer will not be held responsible for any loss \nof money incurred while "
+          "attempting "
+          "to profit using\nthe methods developed in this application. Nor will the \ndeveloper hold any responsibility"
+          "for any harm caused \nto the user's computer or any data loss thereof. By \nusing this application, you, "
+          "the user "
           "Agree to these terms\nof use and do so with the acknowledgement that it is \nat your own risk.\n")
     print("1. Back to Main Menu")
     print("2. Exit")

@@ -4,7 +4,6 @@
     <list default="true" id="a7d1623c-e1ee-4f59-b1bf-d635d8ee71a1" name="Default Changelist" comment="Added a reverse conversion. Fixed aesthetic bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arbvisuals.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbvisuals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_currencies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/my_currencies.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,7 +33,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/WebstormProjects/learn1" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -147,7 +146,9 @@
       <workItem from="1571428910072" duration="5123000" />
       <workItem from="1571764716219" duration="11376000" />
       <workItem from="1571809989715" duration="14023000" />
-      <workItem from="1571928030748" duration="3317000" />
+      <workItem from="1571928030748" duration="4334000" />
+      <workItem from="1572021459957" duration="565000" />
+      <workItem from="1572030896827" duration="1069000" />
     </task>
     <task id="LOCAL-00001" summary="Added a reverse conversion. Fixed aesthetic bugs">
       <created>1571433794702</created>
