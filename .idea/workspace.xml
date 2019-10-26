@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7d1623c-e1ee-4f59-b1bf-d635d8ee71a1" name="Default Changelist" comment="Added a reverse conversion. Fixed aesthetic bugs">
+      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/clifford.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/clifford.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arbvisuals.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbvisuals.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_currencies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/my_currencies.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,6 +26,13 @@
     </option>
     <expand />
     <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -148,7 +157,8 @@
       <workItem from="1571809989715" duration="14023000" />
       <workItem from="1571928030748" duration="4334000" />
       <workItem from="1572021459957" duration="565000" />
-      <workItem from="1572030896827" duration="1069000" />
+      <workItem from="1572030896827" duration="3674000" />
+      <workItem from="1572070622924" duration="9081000" />
     </task>
     <task id="LOCAL-00001" summary="Added a reverse conversion. Fixed aesthetic bugs">
       <created>1571433794702</created>
