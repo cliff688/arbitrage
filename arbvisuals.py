@@ -10,6 +10,7 @@ import itertools as it
 import os
 import csv
 from textwrap import indent
+from colorama import init, Fore, Style
 
 """
 addresses = {
@@ -64,21 +65,68 @@ def check_license():
     clear()
     if user != "clifford":
         print(indent("\n" * 6 + "***ACCESS DENIED***", prefix="    " * 7))
-        print("\n"+"    " * 6 + "***LICENSE KEY NOT FOUND***")
-        print("\n" +"   " * 3 + "contact <cliffygamy@gmail.com> to request a license key" + "\n"*5)
+        print("\n" + "    " * 6 + "***LICENSE KEY NOT FOUND***")
+        print("\n" + "   " * 3 + "contact <cliffygamy@gmail.com> to request a license key" + "\n" * 5)
         sleep(10)
         exit()
     else:
         return 0
 
 
-def indented_print(text):
+def indented_print(text=""):
     """
-    prints indented text on termianal
+    prints indented text on terminal
+    :param text:
+
+    :return:
+    """
+
+    print(Fore.RESET + indent(text, prefix="    "))
+
+
+def i_print_b(text=""):
+    """
+    prints indented green text on terminal
     :param text:
     :return:
     """
-    print(indent(text, prefix="    "))
+    print(Fore.LIGHTCYAN_EX + Style.BRIGHT + indent(text, prefix="    "))
+
+
+def i_print_g(text=""):
+    """
+    prints indented green text on terminal
+    :param text:
+    :return:
+    """
+    print(Fore.GREEN + Style.BRIGHT + indent(text, prefix="    "))
+
+
+def i_print_y(text=""):
+    """
+    prints indented green text on terminal
+    :param text:
+    :return:
+    """
+    print(Fore.LIGHTYELLOW_EX + indent(text, prefix="    "))
+
+
+def i_print_r(text=""):
+    """
+    prints indented red text on terminal
+    :param text:
+    :return:
+    """
+    print(Fore.RED + Style.BRIGHT + indent(text, prefix="    "))
+
+
+def i_print_m(text=""):
+    """
+    prints indented red text on terminal
+    :param text:
+    :return:
+    """
+    print(Fore.MAGENTA + indent(text, prefix="    "))
 
 
 def clear():
@@ -91,7 +139,7 @@ def clear():
 
 def done():
     """Clears the screen and displays closing message before closing the program"""
-
+    os.system("color 0b")
     clear()
     print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "Enjoy your day!\n\n" + "=" * 76 + "\n" * 7)
     sleep(2)
@@ -131,7 +179,7 @@ def continue_process(n):
     :param n:
     :return:
     """
-    indented_print("\n1. Continue Data Edit\n2. Exit")
+    i_print_m("\n1. Continue Data Edit\n2. Help")
     selection = int_inputs(n)
     if selection == 1:
         return 0
@@ -148,9 +196,9 @@ def check_data(n):
 
     if get_data() is None:
         clear()
-        indented_print("\nInsufficient Data. Please Update Your Data To Proceed\n")
+        i_print_r("\nInsufficient Data. Please Update Your Data To Proceed\n")
         sleep(1.5)
-        indented_print("\n ...Referring To Data Centre\n\n ...Please Wait...")
+        i_print_y("\n ...Referring To Data Centre\n\n ...Please Wait...")
         indented_print("\n\n\n\n")
         sleep(3)
         create(n)
@@ -171,11 +219,12 @@ def welcome():
     clear()
     print("\n" * 6 + "=" * 76 + "\n\n" + " " * 30 + "At Your Service :)\n\n" + "=" * 76 + "\n" * 3)
     if beginner:
-        print(" " * 16 + "Tip! Forex Arbitrage Works Best With More Data\n")
+        i_print_m(" " * 16 + "Tip! Forex Arbitrage Works Best With More Data\n")
         sleep(1)
     else:
         print("\n" * 3)
     sleep(2)
+    os.system("color 0f")
     clear()
 
 
@@ -184,14 +233,14 @@ def int_inputs(n):
 
     while True:
         try:
-            option = int(input("\n    >>> "))
+            option = int(input(Fore.LIGHTCYAN_EX + "\n    >>> "))
             if option not in range(1, n + 1):
-                indented_print("Invalid Entry :( Please Try Again.")
+                i_print_r("Invalid Entry :( Please Try Again.")
                 continue
             else:
                 return option
         except ValueError:
-            indented_print("Invalid Entry :( Please Try again")
+            i_print_r("Invalid Entry :( Please Try again")
             continue
 
 
@@ -200,7 +249,7 @@ def back(n):
     It takes their location as an integer which represents their current function call. Depending on their choice
     they can be taken to their previous menu or they can exit the application"""
 
-    indented_print("\n||Where To Next?\n")
+    i_print_y("\n||Where To Next?\n")
     indented_print("1. Back")
     indented_print("2. Exit")
     option = int_inputs(2)
@@ -225,8 +274,8 @@ def help_direct():
 
     clear()
     indented_print("Please refer to Help")
-    indented_print("1. Help")
-    indented_print("2. Continue")
+    i_print_g("1. Help")
+    i_print_r("2. Continue")
     option = int_inputs(2)
     if option == 1:
         get_help()
@@ -243,7 +292,7 @@ def compare_time():
     version will, however, be better!"""
 
     if get_data() is None:
-        indented_print("No Data Found\n")
+        i_print_r("No Data Found\n")
         return 0
     previous = get_data()[0].split(" ")
     now = str(dt.now())
@@ -294,24 +343,24 @@ def compare_time():
         n_h_diff -= 1
 
     if ydiff != 0:
-        indented_print("Last Data Update Over A Year Ago!\n")
+        i_print_r(text="Last Data Update Over A Year Ago!\n")
         return 0
     if mdiff != 0:
-        indented_print("Last Data Update Over A Month Ago!\n")
+        i_print_r(text="Last Data Update Over A Month Ago!\n")
         return 0
 
     if ddiff > 0:
         days = eval(now_date[2]) - eval(p_date[2])
         if days >= 7:
             if days // 7 == 1 and days % 7 <= 2:
-                indented_print(f"Last Data Update: About A Week Ago!\n")
-                return 0
+                i_print_r(text=f"Last Data Update: About A Week Ago!\n")
+
             elif days // 7 == 1 and days >= 3:
-                indented_print(f"Last Data Update: About {days // 7} week {days % 7} days ago!\n")
-                return 0
+                i_print_r(f"Last Data Update: About {days // 7} week {days % 7} days ago!\n")
+
             else:
-                indented_print(f"Last Data update: About {days // 7} weeks ago\n")
-                return 0
+                i_print_r(f"Last Data update: About {days // 7} weeks ago\n")
+            return 0
         elif days == 1:
             hours = 24 - eval(p_time[0]) + eval(n_time[0])
             minutes = eval(n_time[1]) - eval(p_time[1])
@@ -322,19 +371,28 @@ def compare_time():
                 hours -= 1
                 minutes += 60
             if hours > 24:
-                indented_print(f"Last Data Update: 1 day, {hours % 24} hours and {minutes} minutes ago!\n")
+                i_print_r(f"Last Data Update: A day and {hours % 24} hours ago!\n")
+
             else:
-                indented_print(f"Last Data Update: {hours} hours, {minutes} minutes ago!\n")
-            indented_print()
+                if hours < 6:
+                    i_print_g(f"Last Data Update: {hours} hours, {minutes} minutes ago!\n")
+                else:
+                    i_print_r(f"Last Data Update: {hours} hours, {minutes} minutes ago!\n")
+            return 0
 
         else:
-            indented_print(f"last Data Update: About {days} days ago!\n")
+            i_print_r(text=f"last Data Update: About {days} days ago!\n")
+            return 0
     else:
         if n_h_diff != 0:
-            indented_print(f"last Data Update: {n_h_diff} hours, {p_h_diff} minutes ago!\n")
+            if n_h_diff < 6:
+                i_print_g(text=f"last Data Update: {n_h_diff} hours, {p_h_diff} minutes ago!\n")
+            else:
+                i_print_r(text=f"last Data Update: {n_h_diff} hours, {p_h_diff} minutes ago!\n")
 
         else:
-            indented_print(f"last Data Update: {p_h_diff} minutes ago!\n")
+            i_print_g(text=f"last Data Update: {p_h_diff} minutes ago!\n")
+        return 0
 
 
 def get_two_currencies():
@@ -358,33 +416,31 @@ def get_two_currencies():
             if starter in currencies:
                 break
             else:
-                indented_print('Currency Not Found. Please try again!')
+                i_print_r('Currency Not Found. Please try again!')
         except IndexError:
-            indented_print("Invalid Selection. Please Try again")
+            i_print_r("Invalid Selection. Please Try again")
     while True:
-        end = input(indent("\nSelect Final Currency   >>> ", "    "))
+        end = input(indent(Fore.RESET + "\nSelect Final Currency   >>> ", "    "))
 
         try:
             end = int(end)
             end = currencies[end - 1]
             if starter == end:
-                indented_print(
-                    "Starter Currency cannot be equal to Final Currency.\nFor that kind of trading, select 'Find An "
-                    "Opportunity'\nfrom Main Menu.")
+                i_print_r("Starter Currency cannot be equal to Final Currency.")
+                i_print_m("For that kind of trading, select 'Find An Opportunity' from Main Menu.")
                 continue
             break
         except ValueError:
             if end in currencies:
                 if starter == end:
-                    indented_print(
-                        "Starter Currency cannot be equal to Final Currency.\nFor that kind of trading, select 'Find "
-                        "An Opportunity'\nfrom the Main Menu.")
+                    i_print_r("Starter Currency cannot be equal to Final Currency.")
+                    i_print_m("that kind of trading, select 'Find An Opportunity' from the Main Menu.")
                     continue
                 break
             else:
-                indented_print('Currency Not Found. Please try again!')
+                i_print_r('Currency Not Found. Please try again!')
         except IndexError:
-            indented_print("Invalid Selection. Please Try again")
+            i_print_r("Invalid Selection. Please Try again")
 
     return starter, end
 
@@ -397,7 +453,7 @@ def convert():
     """
 
     clear()
-    indented_print("\n||Currency conversions\n")
+    i_print_y("\n||Currency conversions\n")
     indented_print("1. Direct Conversion")
     indented_print("2. Try Chain Conversion")
     indented_print("3. Reverse Conversion")
@@ -406,36 +462,38 @@ def convert():
     if option == 1 or option == 3:
         clear()
         if option == 1:
-            indented_print("\n||Simple Conversion\n")
+            i_print_y("\n||Simple Conversion\n")
         else:
-            indented_print("\n||Reverse Conversion\n")
+            i_print_y("\n||Reverse Conversion\n")
         check_data(1)
         quotes = eval(get_data()[2])
 
         currencies = eval(get_data()[1])
         n = len(currencies)
-        indented_print("Available Currencies\n")
+        i_print_m("Available Currencies\n")
 
         for i in range(n):
             indented_print(f"{i + 1}. {currencies[i]}")
         starter, end = get_two_currencies()
         rate = quotes[(starter, end)][0]
         if rate is None:
-            indented_print(":( Rate is Unavailable. Please Update Your Data")
+            i_print_r(":( Rate is Unavailable.")
+            i_print_m("Please Update Your Data")
         else:
             while True:
                 try:
                     if option == 1:
-                        num = float(input(indent(f"\nEnter Starting Value    >>> {starter} ", prefix="    ")))
+                        num = float(
+                            input(Fore.RESET + indent(f"\nEnter Starting Value    >>> {starter} ", prefix="    ")))
                         indented_print(f"\n{starter} {round(num, 2)} >> {end} {round(num * rate, 2)}")
                         break
                     else:
-                        num = float(input(indent(f"\nEnter Ending Value    >>> {end} ", "    ")))
+                        num = float(input(Fore.RESET + indent(f"\nEnter Ending Value    >>> {end} ", prefix="    ")))
                         indented_print(f"\n{starter} {round(num / rate, 3)} >> {end} {num}")
-                        indented_print(f"\nYou need {starter} {round(num / rate, 3)} to get {end} {num} at {rate}")
+                        i_print_g(f"\nYou need {starter} {round(num / rate, 3)} to get {end} {num} at {rate}")
                         break
                 except ValueError:
-                    indented_print(":( Please Try Again")
+                    i_print_r(":( Please Try Again")
 
         back(1)
 
@@ -454,7 +512,7 @@ def foreign():
     :return: void
     """
     clear()
-    indented_print("\n||Foreign Worth\n")
+    i_print_y("\n||Foreign Worth\n")
     indented_print("1. Use currently available data")
     indented_print("2. Update and use data")
     indented_print("3. Main Menu")
@@ -479,16 +537,16 @@ def foreign():
                 if base in currencies:
                     break
                 else:
-                    indented_print(':( Currency Not Found. Please try again!')
+                    i_print_r(':( Currency Not Found. Please try again!')
             except IndexError:
-                indented_print(":( Invalid Selection. Please Try again!")
+                i_print_r(":( Invalid Selection. Please Try again!")
 
         quotes = [key for key in master_quotes.keys() if key[0] == base and master_quotes[key][0] is not None]
 
         if len(quotes) == 0:
-            indented_print(":) Insufficient Data. Please Update Data To Continue.")
+            i_print_r(":) Insufficient Data. Please Update Data To Continue.")
             sleep(1)
-            indented_print("\nReferring To Data Centre\n\n Please Wait...")
+            i_print_r("\nReferring To Data Centre\n\n Please Wait...")
             sleep(2)
             create(2)
 
@@ -497,12 +555,12 @@ def foreign():
                 num = float(input(indent(f"\nEnter Starting Amount \n>>> {base} ", "    ")))
                 break
             except ValueError:
-                indented_print(":( Please Try Again")
+                i_print_r(":( Please Try Again")
 
         clear()
         indented_print(f"\n||Value of {base} {num} In Forex\n")
         indented_print('{:<10s}'.format("Currency") + '{:>20}'.format("Value"))
-        indented_print("")
+        indented_print()
         for key in quotes:
             indented_print(
                 '{:<10s}'.format(key[1]) + '{:s}'.format('|') + '{:>19,.2f}'.format(num * master_quotes[key][0]))
@@ -566,16 +624,16 @@ def easy_rate(rate):
             if rate > 0:
                 return rate, (None, None)
             else:
-                indented_print(":( Rate cannot be negative")
+                i_print_r(":( Rate cannot be negative")
                 return None
         except SyntaxError:
-            indented_print(":( SInvalid Format. ")
+            i_print_r(":( SInvalid Format. ")
             return None
         except ValueError:
-            indented_print(":( Invalid Format. ")
+            i_print_r(":( Invalid Format. ")
             return None
         except NameError:
-            indented_print(":( Invalid Format. ")
+            i_print_r(":( Invalid Format. ")
             return None
 
 
@@ -591,112 +649,46 @@ def create(k):
     # @@ help referrals in this function get the input 4
 
     clear()
-    indented_print("\n||Create New Data\n")
+    i_print_y("\n||Create New Data\n")
     indented_print("Enter Number of Currencies ")
     while True:
         n = int_inputs(25)
         if n >= 2:
             break
         else:
-            indented_print("At Least Two Currencies Required\nEnter Number of Currencies\n")
+            i_print_r("At Least Two Currencies Required\nEnter Number of Currencies\n")
 
     currencies = []
     rates = {}
     clear()
-    indented_print("\n||Currency Tickers\n")
+    i_print_y("\n||Currency Tickers\n")
     for g in range(n):
         while True:
-            cur = input(indent(f'Currency {g + 1}\n>>> ', "    "))
+            cur = input(Fore.RESET + indent(f'Currency {g + 1}\n>>> ', prefix="    "))
             if cur not in currencies:
                 currencies.append(cur)
                 break
             else:
-                indented_print("Error! That currency has already been registered. Please try again!")
-    pairs = it.permutations(currencies, 2)
+                i_print_r("Error! That currency has already been registered.")
+                i_print_m("Please Try again")
+    pairs = list(it.permutations(currencies, 2))
 
     clear()
-    indented_print("\n||Enter The Rates Below\n")
+    i_print_y("\n||Enter The Rates Below\n")
 
-    cls_counter = 0
     for pair in pairs:
         # Allow entry of rate as a pair of values. The tuple will be stored in the dict as a second value to the pair
         # key
-        cls_counter += 1
-        counter = 0
-
-        # the counter keeps track of the number of failed attempts and then suggests they go to help
-
         while True:
-            rate = input(str(pair[0] + "/" + pair[1] + "... "))
-
-            # Keep code on top
-            # Use function easy rates
-            # @@Add nil function
-            if rate == 'nil' or rate == 'Nil' or rate == 'None' or rate == 'none':
-                rates[pair] = (None, (None, None))
-                break
-            elif '/' in rate or ',' in rate:
-                # place , where we have the x and then delete the /
-                if '/' in rate:
-                    n = rate.split('/')
-                else:
-                    n = rate.split(',')
-                try:
-                    n[0] = int(n[0])
-                    n[1] = int(n[1])
-                    n = tuple(n)
-                    num_rate = float(n[1]) / float(n[0])
-                    rates[pair] = tuple([num_rate, n])
-                    if cls_counter % 3 == 0:
-                        clear()
-                        indented_print("\n||Enter Rates Below")
-                    break
-                except ValueError:
-                    counter += 1
-                    if counter > 3:
-                        indented_print("Invalid Format! Please Refer to Help.")
-                    else:
-                        indented_print("Invalid Format. Please try again")
-                    continue
+            rate = input(Fore.RESET + indent(str(pairs.index(pair) + 1) + '. ' + pair[0] + ' / ' +
+                                             pair[1] + " = ", prefix="    "))
+            rate = easy_rate(rate)
+            if rate is None:
+                continue
             else:
-                try:
-                    rate = float(eval(rate))
-                except SyntaxError:
-                    counter += 1
-                    if counter > 3:
-                        indented_print("Please Refer to Help.")
-                        help_direct()
-                        continue
-                    else:
-                        indented_print("Invalid Format. Please try again")
-                        continue
-
-                if type(rate) == float:
-                    if rate > 0:
-                        rates[pair] = (rate, (None, None))
-                        if cls_counter % 3 == 0:
-                            clear()
-                            indented_print("\n\n")
-                        break
-                    else:
-                        counter += 1
-                        if counter >= 3:
-                            indented_print("Please Refer to Help.")
-                            help_direct()
-                            continue
-                        else:
-                            indented_print(":( Rate Cannot Be Negative. Please Try Again.")
-                else:
-                    counter += 1
-                    if counter > 3:
-                        indented_print(":( Please Refer To Help")
-                        help_direct()
-                        continue
-                        # @@ Allow them to navigate to help from here
-                    else:
-                        indented_print(":( Invalid Entry. Please Try Again")
-                        continue
-    write_data(rates, currencies, new=True)
+                rates[pair] = rate
+                break
+    write_data(rates, currencies, new=False)
     back(k)
 
 
@@ -705,9 +697,9 @@ def print_rates(rates):
 
     :param rates:
     """
-    indented_print("\n||Rates\n")
+    i_print_y("\n||Rates\n")
 
-    indented_print("{:<14s}".format('Pair') + "{0:>19s}".format('Rate') + "{:>30s}".format('Pair Exchange'))
+    i_print_b("{:<14s}".format('Pair') + "{0:>19s}".format('Rate') + "{:>30s}".format('Pair Exchange'))
     for k in rates:
         v = rates[k]
         try:
@@ -715,7 +707,7 @@ def print_rates(rates):
                 "{:<14s}".format(str(k[0]) + "/" + str(k[1])) + "{0:>19,.3f}".format(v[0]) + "{:>30s}".format(
                     str(v[1])))
         except TypeError:
-            indented_print(
+            i_print_r(
                 "{:<14s}".format(str(k[0]) + "/" + str(k[1])) + "{0:>19s}".format('-----') + "{:>30s}".format(
                     str(v[1])))
 
@@ -729,10 +721,10 @@ def edit():
     check_data(4)
     previous_data = get_data()
     currencies, rates = eval(previous_data[1]), eval(previous_data[2])
-    indented_print("\n||Data Update\n")
+    i_print_y("\n||Data Update\n")
     check_data(0)
     # indented_print currencies here under my currencies
-    indented_print("||My Currencies")
+    i_print_m("||My Currencies")
     for cur in currencies:
         indented_print(cur)
     indented_print("\n1. Add A Currency\n2. Update Rates\n3. Back")
@@ -742,23 +734,26 @@ def edit():
     if option == 1:
         # you have to update quotes to show the new currency
         while True:
-            new_currency = input(indent("\n||New Currency\nEnter new currency \n>>> ", prefix="    "))
+            new_currency = input(Fore.RESET + indent("\n||New Currency\nEnter new currency \n>>> ", prefix="    "))
             error = False  # Variable will tell us whether we got out of the next loop due to an error or not
             if new_currency not in currencies:
                 currencies.append(new_currency)
                 clear()
-                indented_print("\nCurrency successfully added to my currencies!")
+                i_print_g("\nCurrency successfully added to my currencies!")
                 new_pairs = list(set([pair for pair in it.permutations(currencies, 2) if
                                       pair[0] == new_currency or pair[1] == new_currency]))
-                indented_print("The following new pairs have been created\n")
+                i_print_g("The following new pairs have been created\n")
                 for pair in new_pairs:
                     indented_print(str(new_pairs.index(pair) + 1) + '. ' + pair[0] + ' / ' + pair[1])
                 sleep(7.5)
                 clear()
-                indented_print("\n||New Quotes\n\nEnter The Rates below\n")
+                i_print_y("\n||New Quotes\n")
+                i_print_m("Enter The Rates below\n")
+
                 for pair in new_pairs:
                     while True:
-                        rate = input(str(new_pairs.index(pair) + 1) + '. ' + pair[0] + ' / ' + pair[1] + "\n>>> ")
+                        rate = input(Fore.RESET + indent(str(new_pairs.index(pair) + 1) + '. ' + pair[0] + ' / ' +
+                                                         pair[1] + " > ", prefix="    "))
                         rate = easy_rate(rate)
                         if rate is None:
                             continue
@@ -772,8 +767,8 @@ def edit():
 
             else:
                 error = True
-                indented_print("Oops :( This currency has already been registered")
-                indented_print("\n1. Try again\n2. Back")
+                i_print_r("Oops :( This currency has already been registered")
+                i_print_g("\n1. Try again\n2. Back")
                 selection = int_inputs(2)
                 if selection == 1:
                     continue
@@ -790,19 +785,19 @@ def edit():
             if first_time:
 
                 clear()
-                indented_print("A new quote for A/B can be given as A/B = rate or"
-                      "A,B = rate. \nThe rate can be given as a number eg 11.00 "
-                      "or as the sample\nof amounts you can exchange. Eg if 10 A "
-                      "gives 110 B then \nrate can be given as 10,110. See help.")
+                i_print_m("A new quote for A/B can be given as A/B = rate or"
+                          "A,B = rate. \nThe rate can be given as a number eg 11.00 "
+                          "or as the sample\nof amounts you can exchange. Eg if 10 A "
+                          "gives 110 B then \nrate can be given as 10,110. See help.")
             else:
                 pass
             print_rates(rates)
-            new_quote = input("\nEnter new quote\n>>> ")
+            new_quote = input(indent("\nEnter new quote\n>>> ", prefix="    "))
             try:
                 new_quote = new_quote.split("=")
                 pair, rate = new_quote[0], new_quote[1]
             except IndexError:
-                indented_print(":( Invalid input")
+                i_print_r(":( Invalid input")
                 continue_process(4)
                 continue
 
@@ -814,17 +809,17 @@ def edit():
                 pair = tuple(pair.split(","))
 
             else:
-                indented_print(":( Invalid input.")
+                i_print_r(":( Invalid input.")
                 continue_process(4)
                 continue
             pair = (pair[0].strip(" "), pair[1].strip(" "))
             if pair[0] not in currencies or pair[1] not in currencies:
                 indented_print(f"pair = {pair}")
-                indented_print("One of the currencies was not found.")
+                i_print_r("One of the currencies was not found.")
                 continue_process(4)
                 continue
             if pair[0] == pair[1]:
-                indented_print("Cannot add quote of a single currency")
+                i_print_r("Cannot add quote of a single currency")
                 continue_process(4)
                 continue
             rate = easy_rate(rate)
@@ -834,19 +829,20 @@ def edit():
             try:
                 rates[pair] = rate
                 indented_print("\n1. Continue Data Edit\n2: Done\n3. Exit")
+                first_time = False
                 selection = int_inputs(3)
                 if selection == 1:
                     continue
                 elif selection == 2:
                     break
             except KeyError:
-                indented_print(":( Invalid pair entry.")
+                i_print_r(":( Invalid pair entry.")
                 continue_process(4)
                 continue
 
         write_data(rates, currencies, new=True)
         clear()
-        indented_print("\nData successfully updated!")
+        i_print_g("\nData successfully updated!")
         back(4)
         done()
 
@@ -871,8 +867,8 @@ def print_returns(where_from_p, conversions, returns):
         try:
             conversions[0][0]
         except IndexError:
-            indented_print(
-                "\n\nOOps! :( \nNo Such Results Available\n\nTry using a different base currency or adding\nmore data")
+            i_print_r("\nOOps! :( \nNo Such Results Available")
+            i_print_m("Try using a different base currency or adding more data")
             back(3)
     combs_to_print = [[] for o in range(len(conversions))]
     for combs in conversions:
@@ -888,7 +884,8 @@ def print_returns(where_from_p, conversions, returns):
     returns_to_print = [[] for o in range(len(conversions))]
 
     if where_from_p == 1:
-        indented_print("\n|Select an option\n\n1. Start With Amount To Convert\n2. Show Results In Terms Of Rates")
+        i_print_y("|Select an option")
+        indented_print("\n1. Start With Amount To Convert\n2. Show Results In Terms Of Rates")
         option_p = int_inputs(2)
         if option_p == 1:
             while True:
@@ -896,7 +893,8 @@ def print_returns(where_from_p, conversions, returns):
                     amount = float(input(indent(f"\nEnter Amount >>> {conversions[0][0][0]} ", prefix="    ")))
                     break
                 except ValueError:
-                    indented_print(":( Please Try Again")
+                    i_print_r(":( Invalid Input")
+                    i_print_m("Please Try Again")
         else:
             amount = 1
 
@@ -919,30 +917,37 @@ def print_returns(where_from_p, conversions, returns):
     clear()
 
     if where_from_p != 1:
-        indented_print("\n||Arbitrage Explorer\n")
+        i_print_y("\n||Arbitrage Explorer\n")
         indented_print(f"\nShowing how much can be made from a {conversions[0][0][0]} arbitrage execution\n\n")
 
-        indented_print(format_guy.format("Conversion Chain") + "{:>16s}".format("Return (%)"))
+        i_print_b(format_guy.format("Conversion Chain") + "{:>16s}".format("Return (%)"))
     else:
-        indented_print("\n||Conversion Chains\n")
-        indented_print(
+        i_print_y("\n||Conversion Chains\n")
+        i_print_m(
             f"\nShowing how much {conversions[0][0][-1]} can be made from {conversions[0][0][0]} {round(amount, 2)}\n\n")
         if amount == 1:
-            indented_print(format_guy.format("Conversion Chain") + "{:>16s}".format(" Effective Rate"))
+            i_print_b(format_guy.format("Conversion Chain") + "{:>16s}".format(" Effective Rate"))
         else:
-            indented_print(format_guy.format("Conversion Chain") + "{:>16s}".format("Value"))
+            i_print_b(format_guy.format("Conversion Chain") + "{:>16s}".format("Value"))
 
-    indented_print("")
+    indented_print()
 
     for i in range(len(combs_to_print)):
         for j in range(len(combs_to_print[i])):
-            if where_from_p != 1:
-                indented_print(format_guy.format(combs_to_print[i][j]) + str("{:>16,.2f}".format(returns_to_print[i][j])))
-            else:
-                if amount == 1:
-                    indented_print(format_guy.format(combs_to_print[i][j]) + str("{:>16,.4f}".format(returns_to_print[i][j])))
+            if where_from_p != 1 or (where_from_p == 1 and amount != 1):
+                if returns_to_print[i][j] > 0:
+                    i_print_g(
+                        format_guy.format(combs_to_print[i][j]) + str("{:>16,.2f}".format(returns_to_print[i][j])))
                 else:
-                    indented_print(format_guy.format(combs_to_print[i][j]) + str("{:>16,.2f}".format(returns_to_print[i][j])))
+                    i_print_r(
+                        format_guy.format(combs_to_print[i][j]) + str("{:>16,.2f}".format(returns_to_print[i][j])))
+            else:
+                if returns_to_print[i][j] > 0:
+                    i_print_g(
+                        format_guy.format(combs_to_print[i][j]) + str("{:>16,.4f}".format(returns_to_print[i][j])))
+                else:
+                    i_print_r(format_guy.format(combs_to_print[i][j]) + str(
+                        "{:>16,.4f}".format(returns_to_print[i][j])))
 
     if where_from_p == 0 or where_from_p == 3:
         back(3)
@@ -960,9 +965,9 @@ def arbitrage(where_from):
 
     clear()
     if where_from == 0 or where_from == 3:
-        indented_print("\n||Arbitrage Explorer\n")
+        i_print_y("\n||Arbitrage Explorer\n")
     else:
-        indented_print("\n||Chain Conversions\n")
+        i_print_y("\n||Chain Conversions\n")
     indented_print("1. Use currently available data")
     indented_print("2. Update and use data")
     indented_print("3. Main Menu")
@@ -980,19 +985,20 @@ def arbitrage(where_from):
         num_of_currencies = len(currencies)
         n = num_of_currencies
         clear()
-        indented_print("\n\n||Available Currencies\n")
+        i_print_y("\n\n||Available Currencies\n")
         for i in range(len(currencies)):
             indented_print(f"{i + 1}. {currencies[i]}")
 
         if n <= 2:
-            indented_print(
-                "Insufficient data for Arbitrage conversions to work\n Please update your data and try again!")
+            i_print_r(
+                "Insufficient data for Arbitrage conversions to work")
+            i_print_m("Please update your data and try again!")
             return 0
 
         if where_from == 0 or where_from == 3:
             while True:
 
-                base = input(indent("\n|Select Base Currency\n>>> ", prefix="    "))
+                base = input(Fore.RESET + indent("\n|Select Base Currency\n>>> ", prefix="    "))
                 try:
                     base = int(base)
                     base = currencies[base - 1]
@@ -1001,9 +1007,11 @@ def arbitrage(where_from):
                     if base in currencies:
                         break
                     else:
-                        indented_print('Currency Not Found. Please try again!')
+                        i_print_r("Currency Not Found.")
+                        i_print_m(" Please try again!")
                 except IndexError:
-                    indented_print("Invalid Selection. Please Try again")
+                    i_print_r("Invalid Selection. ")
+                    i_print_m(" Please try again!")
             currencies.append(base)
             orders = [o for o in range(3, n + 1)]
             p_returns = [[] for o in orders]
@@ -1093,7 +1101,9 @@ def arbitrage(where_from):
         #  the printing business
         clear()
         if where_from == 0 or where_from == 3:
-            indented_print("\n1. Show Sorted Gains Only\n2. Show Failed Arbitrages\n3. Show All Results")
+            i_print_g("\n1. Show Sorted Gains Only")
+            i_print_r("2. Show Failed Arbitrages")
+            indented_print("3. Show All Results")
             f = int_inputs(3)
             if f == 1:
                 print_returns(3, printable_conversions, printable_gains)
@@ -1139,12 +1149,12 @@ def data_handle():
         rates = eval(past_data[2])
         clear()
 
-        indented_print("\n||Currencies\n")
+        i_print_y("\n||Currencies\n")
 
         num_of_currencies = len(currencies)
         for i in range(num_of_currencies):
             indented_print(f"{i + 1}. {currencies[i]}")
-        indented_print("\nPlease Wait...")
+        i_print_m("\nPlease Wait...")
         sleep(5)  # Clear screen here
         clear()
         print_rates(rates)
@@ -1165,12 +1175,12 @@ def learn():
 
     """
     clear()
-    indented_print("\n||Learn")
+    i_print_y("\n||Learn")
     indented_print("\nLearn About?\n\n1. How it works\n2. Tips on getting rates")
     select = int_inputs(2)
     if select == 1:
         clear()
-        indented_print("\n||How It Works")
+        i_print_y("\n||How It Works")
         indented_print("\n Arbitrage occurs when identical products, commodities or anything\n"
                        "of value are sold at different prices in different places. Sometimes\n"
                        "it can even be happening in the same place. In this case our commodities\n"
@@ -1189,7 +1199,7 @@ def learn():
                        "changing people, and does the calculations for you.")
     else:
         clear()
-        indented_print("\n||Getting Currencies")
+        i_print_y("\n||Getting Currencies")
         indented_print("\n As a rule, when finding these currency rates, you should always \n"
                        "take the ones that gives you more of the currency you're getting.\n"
                        "i.e whenever you get from currency A to currency B, take the rate\n"
@@ -1206,7 +1216,7 @@ def learn():
                        "\n NB See the Help section to see how you can input your currency\n"
                        "data easily, without having to do the calculations to determine the\n"
                        "actual mathematical rate")
-    indented_print("\n1. Back to Learn")
+    i_print_m("\n1. Back to Learn")
     indented_print("2. Back to Main Menu")
     indented_print("3. Exit")
     option = int_inputs(3)
@@ -1223,9 +1233,9 @@ def get_help():
 
     """
     clear()
-    indented_print("||Help")
+    i_print_y("||Help")
     # Add Menu to allow user to navigate the help
-    indented_print("\nThis section is still under development")
+    i_print_m("\nThis section is still under development")
     indented_print("1. Back")
     indented_print("2. Exit")
     option = int_inputs(2)
@@ -1240,14 +1250,17 @@ def about():
 
     """
     clear()
-    indented_print(
-        "\nDeveloped by Fourscore Financial Technologies\nGitHub @@Cliff688\nVersion 2019.1.10.2\nCopyright 2019\n"
-        "\n||Disclaimer\n\nThe developer will not be held responsible for any loss \nof money incurred while "
-        "attempting "
-        "to profit using\nthe methods developed in this application. Nor will the \ndeveloper hold any responsibility"
-        "for any harm caused \nto the user's computer or any data loss thereof. By \nusing this application, you, "
-        "the user "
-        "Agree to these terms\nof use and do so with the acknowledgement that it is \nat your own risk.\n")
+    i_print_r(
+        "\nDeveloped by Fourscore Financial Technologies")
+    i_print_m("GitHub @@Cliff688\nVersion 2019.1.10.2\nCopyright 2019\n")
+    i_print_y("\n||Disclaimer\n")
+    indented_print("The developer will not be held responsible for any loss \nof money incurred while "
+                   "attempting "
+                   "to profit using\nthe methods developed in this application. Nor will the \ndeveloper hold any responsibility"
+                   "for any harm caused \nto the user's computer or any data loss thereof. By \nusing this application, you, "
+                   "the user "
+                   "Agree to these terms\nof use and do so with the acknowledgement that it is \nat your own risk.\n")
+    i_print_y("||Where to next?")
     indented_print("1. Back to Main Menu")
     indented_print("2. Exit")
     option = int_inputs(2)
@@ -1263,7 +1276,7 @@ def main():
     :return:
     """
     clear()
-    indented_print("\n||Main Menu\n")
+    i_print_y("\n||Main Menu\n")
     compare_time()
     indented_print("1. Convert A Currency")
     indented_print("2. Foreign Value")

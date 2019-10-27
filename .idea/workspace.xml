@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a7d1623c-e1ee-4f59-b1bf-d635d8ee71a1" name="Default Changelist" comment="Added a reverse conversion. Fixed aesthetic bugs">
+      <change afterPath="$PROJECT_DIR$/functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dictionaries/clifford.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/clifford.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arbvisuals.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbvisuals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/my_currencies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/my_currencies.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trial.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,16 +42,17 @@
   <component name="ProjectId" id="1RCwpshNsZCUH0Y3SFUigF2SgeH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$USER_HOME$/WebstormProjects/learn1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Python" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -99,7 +102,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trial.py" />
+      <option name="SCRIPT_NAME" value="C:\Users\clifford\Documents\projects\arbitrage\functions.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -159,7 +162,9 @@
       <workItem from="1572021459957" duration="565000" />
       <workItem from="1572030896827" duration="3674000" />
       <workItem from="1572070622924" duration="13370000" />
-      <workItem from="1572094699834" duration="3627000" />
+      <workItem from="1572094699834" duration="4343000" />
+      <workItem from="1572171341245" duration="499000" />
+      <workItem from="1572172952116" duration="16791000" />
     </task>
     <task id="LOCAL-00001" summary="Added a reverse conversion. Fixed aesthetic bugs">
       <created>1571433794702</created>
@@ -196,6 +201,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/arbitrage$trial.coverage" NAME="trial Coverage Results" MODIFIED="1570104783052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/arbitrage$arbvisuals.coverage" NAME="arbvisuals Coverage Results" MODIFIED="1571841695885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/arbitrage$arbvisuals.coverage" NAME="arbvisuals Coverage Results" MODIFIED="1572173317825" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
