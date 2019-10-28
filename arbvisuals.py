@@ -870,6 +870,7 @@ def print_returns(where_from_p, conversions, returns):
             i_print_r("\nOOps! :( \nNo Such Results Available")
             i_print_m("Try using a different base currency or adding more data")
             back(3)
+
     combs_to_print = [[] for o in range(len(conversions))]
     for combs in conversions:
         for per in combs:
@@ -908,6 +909,14 @@ def print_returns(where_from_p, conversions, returns):
             n *= amount
             returns_to_print[returns.index(return_list)].append(n)
 
+    reference = 0
+    if where_from_p == 1:
+        print(conversions)
+        print(returns_to_print)
+        reference_pair = conversions[0][0][0], conversions[0][0][-1]
+
+        reference = returns_to_print[0][conversions[0].index(reference_pair)]
+
     lengths = []
     for order in combs_to_print:
         for conversion in order:
@@ -935,18 +944,25 @@ def print_returns(where_from_p, conversions, returns):
     for i in range(len(combs_to_print)):
         for j in range(len(combs_to_print[i])):
             if where_from_p != 1 or (where_from_p == 1 and amount != 1):
-                if returns_to_print[i][j] > 0:
+                if (where_from_p != 1 and returns_to_print[i][j] > 0) or \
+                        (where_from_p == 1 and returns_to_print[i][j] > reference):
                     i_print_g(
                         format_guy.format(combs_to_print[i][j]) + str("{:>16,.2f}".format(returns_to_print[i][j])))
-                else:
+                elif reference == 0 or (where_from_p == 1 and returns_to_print[i][j] < reference):
                     i_print_r(
                         format_guy.format(combs_to_print[i][j]) + str("{:>16,.2f}".format(returns_to_print[i][j])))
+                else:
+                    indented_print(
+                        format_guy.format(combs_to_print[i][j]) + str("{:>16,.2f}".format(returns_to_print[i][j])))
             else:
-                if returns_to_print[i][j] > 0:
+                if returns_to_print[i][j] > reference:
                     i_print_g(
                         format_guy.format(combs_to_print[i][j]) + str("{:>16,.4f}".format(returns_to_print[i][j])))
-                else:
+                elif returns_to_print[i][j] < reference:
                     i_print_r(format_guy.format(combs_to_print[i][j]) + str(
+                        "{:>16,.4f}".format(returns_to_print[i][j])))
+                else:
+                    indented_print(format_guy.format(combs_to_print[i][j]) + str(
                         "{:>16,.4f}".format(returns_to_print[i][j])))
 
     if where_from_p == 0 or where_from_p == 3:

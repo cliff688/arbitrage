@@ -8,13 +8,15 @@ import os
 init(convert=True)
 
 
-def check_license(key="K3N0GR04B50910"):
+def check_license(key="K3N0GR04B50910A"):
     """
     checks whether the computer has access to the application
     :return:
     """
     try:
+        os.system("attrib -h -r text.txt")
         os.system("wmic bios get serialNumber > text.txt")
+        os.system("attrib +h +r text.txt")
         with open("text.txt", "rb") as sn:
             serial = sn.read().decode('utf-16')
         serial = serial.replace(" ", "")
@@ -28,6 +30,8 @@ def check_license(key="K3N0GR04B50910"):
             sleep(10)
             exit()
         else:
+            print("allowed".upper())
+            sleep(2)
             return 0
 
     except KeyboardInterrupt:
