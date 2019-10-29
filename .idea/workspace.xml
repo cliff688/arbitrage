@@ -4,7 +4,6 @@
     <list default="true" id="a7d1623c-e1ee-4f59-b1bf-d635d8ee71a1" name="Default Changelist" comment="Added a reverse conversion. Fixed aesthetic bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/arbvisuals.py" beforeDir="false" afterPath="$PROJECT_DIR$/arbvisuals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/my_currencies.csv" beforeDir="false" afterPath="$PROJECT_DIR$/my_currencies.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -163,7 +162,7 @@
       <workItem from="1572171341245" duration="499000" />
       <workItem from="1572172952116" duration="17249000" />
       <workItem from="1572250410973" duration="7882000" />
-      <workItem from="1572338507799" duration="11799000" />
+      <workItem from="1572338507799" duration="12442000" />
     </task>
     <task id="LOCAL-00001" summary="Added a reverse conversion. Fixed aesthetic bugs">
       <created>1571433794702</created>

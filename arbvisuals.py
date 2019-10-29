@@ -567,7 +567,7 @@ def foreign():
         if len(quotes) == 0:
             i_print_r(":) Insufficient Data. Please Update Data To Continue.")
             sleep(1)
-            i_print_m("\nReferring To Data Centre\n\n Please Wait...")
+            i_print_y("\nReferring To Data Centre\n\n Please Wait...")
             sleep(2)
             create(2)
 
@@ -585,7 +585,7 @@ def foreign():
         indented_print()
         for key in quotes:
             print(Fore.LIGHTCYAN_EX + indent("{:<15s}".format(key[1]) + "{:s}".format('|'), prefix="    "), end="")
-            print(Fore.GREEN + '{:>19,.2f}'.format(num * master_quotes[key][0]))
+            print(Fore.LIGHTCYAN_EX + '{:>19,.2f}'.format(num * master_quotes[key][0]))
         indented_print("\nPLEASE NOTE")
         i_print_m(
             "This section only shows the foreign value when calculated \nusing direct rates, your money might "
@@ -1311,7 +1311,7 @@ def about():
     clear()
     i_print_r(
         "\nDeveloped by Fourscore Financial Technologies")
-    i_print_m("GitHub @@Cliff688\nVersion 2019.1.10.2\nCopyright 2019\n")
+    i_print_g("GitHub @@Cliff688\nVersion 2019.1.10.2\nCopyright 2019\n")
     i_print_y("\n||Disclaimer\n")
     indented_print("The developer will not be held responsible for any loss \nof money incurred while "
                    "attempting "
