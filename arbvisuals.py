@@ -129,6 +129,25 @@ def i_print_m(text=""):
     print(Fore.MAGENTA + indent(text, prefix="    "))
 
 
+def beautiful_line():
+    """
+    Prints beautiful line on screen
+
+    :return:
+    """
+
+    print(Fore.RED + indent("." * 4, prefix="    "), end="")
+    print(Fore.LIGHTRED_EX + "." * 6, end="")
+    print(Fore.YELLOW + "." * 5, end="")
+    print(Fore.LIGHTYELLOW_EX + "." * 4, end="")
+    print(Fore.LIGHTGREEN_EX + "." * 7, end="")
+    print(Fore.GREEN + "." * 6, end="")
+    print(Fore.LIGHTCYAN_EX + "." * 8, end="")
+    print(Fore.BLUE + "." * 7, end="")
+    print(Fore.MAGENTA + "." * 6, end="")
+    print(Fore.LIGHTMAGENTA_EX + "." * 8)
+
+
 def clear():
     """
     Clears the screen or terminal
@@ -544,12 +563,12 @@ def foreign():
 
         currencies = eval(master_data[1])
         i_print_y("\n\n||Initialisation\n")
-        i_print_m('1Available Currencies\n')
+        i_print_m('Available Currencies\n')
         for i in range(len(currencies)):
             i_print_g(f"{i + 1}. {currencies[i]}")
         while True:
-            i_print_m("\nSelect Base Currency")
-            base = input(Fore.LIGHTCYAN_EX + indent("\n>>> ", prefix='    '))
+            print(Fore.RESET + indent("\nSelect Base Currency ", prefix="    "), end="")
+            base = input(Fore.LIGHTCYAN_EX + " >>> ")
             try:
                 base = int(base)
                 base = currencies[base - 1]
@@ -558,18 +577,22 @@ def foreign():
                 if base in currencies:
                     break
                 else:
-                    i_print_r(':( Currency Not Found. Please try again!')
+                    print(Fore.LIGHTRED_EX + indent('Currency Not Found.'.upper(), prefix="    "), end="")
+                    print(Fore.LIGHTMAGENTA_EX + ' Please try again!')
             except IndexError:
-                i_print_r(":( Invalid Selection. Please Try again!")
+                print(Fore.LIGHTRED_EX + indent('invalid entry.'.upper(), prefix="    "), end="")
+                print(Fore.LIGHTMAGENTA_EX + ' Please try again!')
 
         quotes = [key for key in master_quotes.keys() if key[0] == base and master_quotes[key][0] is not None]
 
         if len(quotes) == 0:
-            i_print_r(":) Insufficient Data. Please Update Data To Continue.")
-            sleep(1)
-            i_print_y("\nReferring To Data Centre\n\n Please Wait...")
-            sleep(2)
-            create(2)
+            print(Fore.LIGHTRED_EX + indent('fatal! insufficient data.'.upper(), prefix="    "), end="")
+            print(Fore.YELLOW + ' Please Update Data To Continue\n\n')
+            beautiful_line()
+            i_print_y("\n\nReferring To Data Centre")
+            i_print_m("Please Wait...")
+            sleep(7)
+            edit()
 
         while True:
             try:
@@ -595,7 +618,7 @@ def foreign():
             "Chain Conversion'")
         back(2)
     elif option == 2:
-        create(2)
+        edit()
     else:
         main()
     # @@ print the list of currencies in data base
@@ -623,7 +646,7 @@ def easy_rate(rate):
     :return:
     """
     # @@Add nil function
-    if rate == 'nil' or rate == 'Nil' or rate == 'None' or rate == 'none' or 'n' or 'N':
+    if rate == 'nil' or rate == 'Nil' or rate == 'None' or rate == 'none' or rate == 'n' or rate == 'N':
         return None, (None, None)
     elif '/' in rate or ',' in rate:
         # place , where we have the x and then delete the /
@@ -1090,7 +1113,8 @@ def arbitrage(where_from):
                   orders]
             if quotes[(starter, end)][0] is None:
                 i_print_r("\nFATAL! REFERENCE QUOTE IS UNAVAILABLE")
-                i_print_m(f"Update rate for {starter}/{end}")
+                i_print_m(f"Update rate for {starter}/{end}\n")
+                beautiful_line()
                 back(1)
                 return 0
         # the order corresponds to the number of currencies involved
