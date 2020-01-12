@@ -8,7 +8,7 @@ import os
 init(convert=True)
 
 
-def check_license(key="K3N0GR04B50910A"):
+def check_license(key="K3N0GR04B50910"):
     """
     checks whether the computer has access to the application
     :return:

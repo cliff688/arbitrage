@@ -198,7 +198,7 @@ def continue_process(n):
     :param n:
     :return:
     """
-    i_print_m("\n1. Continue Data Edit\n2. Help")
+    indented_print("\n1. Continue Data Edit\n2. Help")
     selection = int_inputs(n)
     if selection == 1:
         return 0
@@ -596,14 +596,16 @@ def foreign():
 
         while True:
             try:
-                print(Fore.MAGENTA + "\n    Starting Amount", end="")
+                print(Fore.RESET + "\n    Starting Amount", end="")
                 num = float(input(Fore.LIGHTCYAN_EX + f" >>> {base} "))
                 break
             except ValueError:
                 i_print_r(":( Please Try Again")
 
         clear()
-        i_print_m(f"\n||Value of {base} {num} In Forex\n")
+        print(Fore.YELLOW + indent("\n||Showing Value of", prefix="    "), end="")
+        print(Fore.LIGHTCYAN_EX + f" {base} {num} ", end="")
+        print(Fore.YELLOW + "In Other Currencies.\n")
         indented_print('{:<15s}'.format("Currency") + '{:>20}'.format("Value"))
         indented_print()
         for key in quotes:
@@ -728,8 +730,8 @@ def create(k):
         # Allow entry of rate as a pair of values. The tuple will be stored in the dict as a second value to the pair
         # key
         while True:
-            rate = input(Fore.RESET + indent(str(pairs.index(pair) + 1) + '. ' + pair[0] + ' / ' +
-                                             pair[1] + " = ", prefix="    "))
+            print(Fore.RESET + indent(f"{pairs.index(pair) + 1}. {pair[0]} / {pair[1]} = ", prefix="    "), end="")
+            rate = input(Fore.LIGHTCYAN_EX)
             rate = easy_rate(rate)
             if rate is None:
                 continue
@@ -970,10 +972,7 @@ def print_returns(where_from_p, conversions, returns):
     reference = 0
     if where_from_p == 1:
         try:
-            print(conversions)
-            print(returns_to_print)
             reference_pair = conversions[0][0][0], conversions[0][0][-1]
-
             reference = returns_to_print[0][conversions[0].index(reference_pair)]
         except ValueError:
             reference = 0
@@ -1155,7 +1154,9 @@ def arbitrage(where_from):
 
                 returns[mc.index(combinations)].append(num)
                 k += 1
-
+        """
+        A serious bug is here. occurs when the removing indeterminate permuattions removes a whole order or something. to 
+        see what i mean add a fifth cuurency to four and try chain conevrions"""
         nmc = [list(set(mc[i]).difference(set(indeterminate_permutations[i]))) for i in range(len(orders))]
         p_unsorted = []
         p_unsorted_results = []
