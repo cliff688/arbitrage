@@ -48,30 +48,6 @@ functions that get the param where_from
              
 """
 
-"""
-License should be implemented so that I have a list of keys which when used will be deleted.
-When a key is entered, it allows the key in the program to change to the serial number of the user's
-machine. If key == serialNumber, the user will never see the prompt for the key. Fallacy: when they start 
-to share, keys become reusable. Solve this be a sharable variable of True or False
-"""
-
-
-def check_license():
-    """
-    checks whether the computer has access to the application
-    :return:
-    """
-    user = os.getlogin()
-    clear()
-    if user != "clifford":
-        print(indent("\n" * 6 + "***ACCESS DENIED***", prefix="    " * 7))
-        print("\n" + "    " * 6 + "***LICENSE KEY NOT FOUND***")
-        print("\n" + "   " * 3 + "contact <cliffygamy@gmail.com> to request a license key" + "\n" * 5)
-        sleep(10)
-        exit()
-    else:
-        return 0
-
 
 def indented_print(text=""):
     """
@@ -1391,6 +1367,5 @@ def main():
 
 
 if __name__ == "__main__":
-    check_license()
     welcome()
     main()
